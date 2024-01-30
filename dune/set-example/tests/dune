@@ -1,0 +1,8 @@
+; This dune file configures and runs the tests.
+
+(test
+  (name tests)
+  (libraries
+    ounit2
+    simple_set
+  ))

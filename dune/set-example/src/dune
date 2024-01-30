@@ -1,0 +1,29 @@
+; The dune build file for this small project
+; We will be supplying dune files in this class so no need to understand all the details here
+
+; This builds our libraries, the Simple_set module in this case:
+ 
+(library
+ (name simple_set)
+ (modules simple_set)
+ 
+ (inline_tests)
+  (preprocess
+    (pps ppx_inline_test )) 
+ )
+
+; To load simple_set.ml library as a module into a fresh utop top loop use terminal command
+; `dune utop`
+
+; We will also build a command-line program from the file set_main.ml
+; Note that you won't need to do this in this class, you will only need to write libraries
+; The example here is just to show the concept.
+
+(executable
+ (name set_main)
+ (libraries simple_set)
+ (modules set_main) 
+)
+
+
+
