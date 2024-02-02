@@ -51,7 +51,7 @@ open Printf
 let message = "Hello world";;
 (printf "%s\n" message)
 ```
-The first line includes the built-in library for printing, which provides functions similar to fprintf and printf from stdlib in C. The next two lines define a constant named message, and then call the printf function with a format string (where %s means “format as string”), and the constant message we defined on the line before.
+The first line includes the built-in library for printing, which provides functions similar to fprintf and printf from stdlib in C. The next two lines define a constant named message, and then call the printf function with a format string (where %s means "format as string"), and the constant message we defined on the line before.
 
 
 To compile and run
@@ -328,8 +328,8 @@ val x : int list = [4; 1; 2; 3]
 # let z = 5::y ;;
 val z : int list = [5; 1; 2; 3]
 
-# let m = “hello”::”bob”::[];;
-val m : string list = [“hello”; “bob”]
+# let m = "hello" :: "bob" ::[];;
+val m : string list = ["hello"; "bob"]
 ```
 
 ### Typing
@@ -501,7 +501,7 @@ let tl (_::t) = t
 ```
 ```ocaml
 let fst x y = x
-# fst 1 “hello”;;
+# fst 1 "hello";;
 - : int = 1
 # fst [1; 2] 1;;
 - : int list = [1; 2]
@@ -512,9 +512,9 @@ let fst x y = x
 let eq x y = x = y   (* let eq x y = (x = y) *)
 # eq 1 2;;
 -	: bool = false
-# eq “hello” “there”;;
+# eq "hello" "there";;
 - : bool = false
-# eq “hello” 1     -- type error
+# eq "hello" 1     -- type error
 (* eq : 'a -> ’a -> bool *)
 ```
 OCaml can detect non-exhaustive patterns and warn you about them. For example:
