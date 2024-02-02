@@ -291,3 +291,436 @@ fn : float -> int = <fun>
 fact;;
 fact: int -> int
 ```
+
+
+
+### Type annotations
+OCaml compiler infers the types. But type inference is tricky. It gives vague error messages. We can annotate types manually. 
+```ocaml
+let (x : int) = 3;;
+val x : int = 3
+```
+```ocaml
+let fn (x:int):float = (float_of_int x) *. 3.14;;
+    val fn : int → float
+```
+```ocaml
+let add (x:int) (y:int):int = x + y
+let id x = x (* 'a → 'a *)
+let id (x:int) = x (* int → int *)
+```
+
+## Lists in OCaml
+List is a basic data structure in OCaml. Lists can be of arbitrary length and implemented as a linked data structure. Lists must be homogeneous, meaning all elements have the same type. We will learn how to construct lists and destruct them via pattern matching. 
+
+### Evaluation
+`[ ]` is a value. To evaluate `[e1; e1;...;en]`, we evaluate `e1` to a value `v1`, `e2` to a value `v2`, and `en` to a value `vn`, and return `[v1;…;vn]`.
+`e1::e2` is a desugaring of [e1;e2].
+
+### Examples
+```ocaml
+# let y = [1; 1+1; 1+1+1] ;;
+val y : int list = [1; 2; 3]
+
+# let x = 4::y ;;
+val x : int list = [4; 1; 2; 3]
+
+# let z = 5::y ;;
+val z : int list = [5; 1; 2; 3]
+
+# let m = “hello”::”bob”::[];;
+val m : string list = [“hello”; “bob”]
+```
+
+### Typing
+The type of `Nil` is `'a list` i.e., empty list `[ ]` has type `t` list for any type `t`. The type of `Cons` is 
+```ocaml 
+If e1 : t and e2 : t list then e1::e2 : t list
+```
+
+With parens for clarity: 
+```ocaml
+If e1 : t and e2 : (t list) then (e1::e2) : (t list) 
+```
+### Examples
+```ocaml
+# let m = [[1];[2;3]];;
+val y : int list list = [[1]; [2; 3]]
+
+# let y = 0::[1;2;3] ;;
+val y : int list = [0; 1; 2; 3]
+
+# let x = [1;"world"] ;; (* all elements must have same type *)
+
+This expression has type string but an expression was expected of type int
+```
+`::` operator appends a single item, not a list, to the front of another list. The left argument of `::` is an element, the right is a list
+```ocaml
+# let w = [1;2]::y ;; 
+This expression has type int list but is here used with type int list list
+```
+
+Can you construct a list y such that [1;2]::y makes sense? 
+
+Yes. If the type of `y` is `int list list`,i.e., `[1;2]::[[3;4]]`. Each element of this list is an `int list`.
+
+Lists in Ocaml are Linked. `[1;2;3]` is represented as:
+![image](lists.png). 
+
+A nonempty list is a `pair (element, rest of list)`. The `element` is the head of the list, and `rest of the list` is itself a list. Thus in math (i.e., inductively) a list is either 
+* The empty list [ ]
+*  Or a pair consisting of an element and a list
+
+This recursive structure will come in handy shortly
+
+### Lists of Lists
+Lists can be nested arbitrarily. For exmaple: `[ [9; 10; 11]; [5; 4; 3; 2] ]`. Type `int list list`, also written as `(int list) list`.  Lists are Immutable. 	No way to mutate (change) an element of a list. 	Instead, build up new lists out of old, e.g., using `::`. 
+
+### Pattern Matching
+To pull lists apart, we use the `match` construct. The pattern-matching part of the `match` is a sequence of clauses, each one of the form: `pattern -> expr`, separated by vertical bars (|). The clauses are processed in order, and only the `expr` of first matching clause is evaluated. The value of the entire match expression is the value of the `expr` of the matching clause; If no `pattern` matches `expr`, your match is said to be `non-exhaustive` and when a match fails it raise the exception `Match_failure`.
+Syntax
+```ocaml
+match e with 
+| p1 -> e1 
+| … 
+| pn -> en
+```
+### Pattern Matching Example
+```ocaml
+(* get  the head of a list *)
+let hd l = 
+  match l with 
+  (h::t) -> h
+
+hd [1;2;3](* evaluates to 1 *)
+hd [2;3]  (* evaluates to 2 *)
+hd [3]    (* evaluates to 3 *)
+hd []	    (* Exception: Match_failure *)
+```
+ 
+### "Deep" pattern matching 
+You can nest patterns for more precise matches
+* `a::b` matches lists with **at least one element** 
+	* It matches `[1;2;3]`, binding `a` to `1` and `b` to `[2;3]` 
+* `a::[]` matches lists with **exactly one element**
+	* It matches `[1]`, binding `a` to `1`. we could also write pattern `a::[]` as `[a]` 
+* `a::b::[]` matches lists with **exactly two elements** 
+	* It matches [1;2], binding a to 1 and b to 2. We could also write pattern a::b::[] as [a;b] 
+* `a::b::c::d` matches lists with **at least three elements**. It matches `[1;2;3]`, binding `a` to `1`, `b` to `2`, `c` to `3`, and `d` to `[]`.
+
+**Cannot write pattern as [a;b;c]::d (why?)**
+
+### Wildcards
+An underscore `_` is a wildcard pattern. It matches anything, but doesn’t add any bindings. It is useful to hold a place but discard the value i.e., when the variable does not appear in the branch expression. 
+
+In previous examples, many values of h or t ignored. We can replace with wildcard `_`. 
+
+#### Example
+```ocaml
+(* cehck if a list is empty *)
+let is_empty l = 
+  match l with
+ [] -> true	 
+ | (_::_) -> false
+
+let hd l = match l with (h::_) -> h 
+let tl l = match l with (_::t) -> t
+```
+
+Outputs
+```ocaml
+is_empty[1](* evaluates to false *) 
+is_empty[ ](* evaluates to true  *)
+hd [1;2;3] (* evaluates to 1     *) 
+hd [1]     (* evaluates to 1     *)
+tl [1;2;3] (* evaluates to [2;3] *)
+tl [1]     (* evaluates to [ ]   *)
+```
+### Pattern Matching – An Abbreviation
+If f there’s only one acceptable input, the pattern matching `let f x = match x with p -> e` can be abbreviated to `let f p = e`.  For example: 
+```ocaml
+let hd l = 
+  match l with
+  |h::_-> h
+```
+can be wrriten as:
+```ocaml
+let hd (h::_) = h
+```
+```ocaml
+let hd l = 
+  match l with
+  |_::t-> t
+```
+can be wrriten as:
+```ocaml
+let tl (_::t) = t
+```
+```ocaml
+let f lst = 
+match lst with 
+|(x::y::_) -> x + y
+```
+can be wrriten as:
+```ocaml
+let f (x::y::_) = x + y
+```
+```ocaml
+let f lst = 
+  match lst with 
+  |(x::y::[]) -> x + y
+```
+can be wrriten as:
+```ocaml
+let g [x; y] = x + y
+```
+### Pattern Matching Typing
+If `e` and `p1`, ..., `pn` each have type `ta`
+and `e1`, ..., `en` each have type `tb`, then entire match expression has type `tb`. 
+
+### Polymorphic Types
+The sum function works only for int  lists, but the `hd` function works for any type of list. 
+```
+hd [1; 2; 3]		(* returns 1 *)
+hd ["a"; "b"; "c"]	(* returns "a" *)
+```
+OCaml gives such functions polymorphic types. 
+```ocaml
+hd : 'a list -> 'a
+```
+This says the function takes a list of any element type `'a`, and returns something of that same type. These are basically generic types in Java. 
+`'a list` is like `List<T>`. 
+### Examples Of Polymorphic Types
+```ocaml
+let tl (_::t) = t
+# tl [1; 2; 3];;
+- : int list = [2; 3]
+# tl [1.0; 2.0];;
+- : float list = [2.0]
+(* tl : 'a list -> 'a list *)
+```
+```ocaml
+let fst x y = x
+# fst 1 “hello”;;
+- : int = 1
+# fst [1; 2] 1;;
+- : int list = [1; 2]
+(* fst : 'a -> 'b -> 'a *)
+```
+
+```ocaml
+let eq x y = x = y   (* let eq x y = (x = y) *)
+# eq 1 2;;
+-	: bool = false
+# eq “hello” “there”;;
+- : bool = false
+# eq “hello” 1     -- type error
+(* eq : 'a -> ’a -> bool *)
+```
+OCaml can detect non-exhaustive patterns and warn you about them. For example:
+```ocaml
+let hd l = match l with (h::_) -> h;;
+Warning: this pattern-matching is not exhaustive.
+Here is an example of a value that is not matched: []
+
+# hd [];;
+Exception: Match_failure ("", 1, 11).
+```
+Therefore, You can’t forget a case because compiler issues inexhaustive pattern-match warning. You can’t duplicate a case because compiler issues unused match case warning. Pattern matching leads to elegant, concise, beautiful code . 
+
+### Lists and Recursion
+Lists have a recursive structure and so most functions over lists will be recursive. 
+```ocaml
+let rec length l = 
+  match l with
+  |[] -> 0
+  | (_::t) -> 1 + (length t)
+```
+This is just like an inductive definition: 
+* The length of the empty list is zero
+* The length of a nonempty list is 1 plus the length of the tail. 
+
+Type of length is `'a list -> int`
+
+```ocaml
+(* sum of elts in l *) 
+let rec sum l = match l with
+    [] -> 0
+  | (h::t) -> h + (sum t)
+```
+```ocaml
+(* negate elements in list *)
+let rec negate l = 
+	match l with
+     [] -> []
+     | (h::t) -> (-h) :: (negate t)
+```
+```ocaml
+(* last element of l *)
+let rec last l = match l with
+    [x] -> x
+  | (h::t) -> last t
+```
+
+```ocaml
+(* return a list containing all the elements in the list l followed by all the elements in list m *)
+•	append l m
+let rec append l m = match l with
+   [] -> m
+ | (x::xs) -> x::(append xs m)
+```
+```ocaml
+rev l  (* reverse list; hint: use append *)
+let rec rev l = match l with
+    [] -> []
+  | (x::xs) -> append (rev xs) (x::[])
+```
+`rev` takes O(n2) time.  Can you do better? Here is a  clever version of reverse
+```ocaml
+let rec rev_helper l a = match l with
+    [] -> a
+  | (x::xs) -> rev_helper xs (x::a)
+
+let rev l = rev_helper l []
+```
+Let’s give it a try
+```ocaml
+rev [1; 2; 3] →
+rev_helper [1;2;3] [] →
+rev_helper [2;3] [1] →
+rev_helper [3] [2;1] →
+rev_helper [] [3;2;1] →
+[3;2;1]
+```
+```ocaml
+(* Check if a value is odd *)
+
+let is_odd x =
+		match x mod 2 with
+		0 -> false
+		| 1 -> true
+		| _ -> raise (Invalid_argument "is_odd");;    (* why do we need this? *)
+(* try -1 mod 2 *)
+```
+Negate a value
+```ocaml
+let neg b = 
+	match b with
+	| true -> false
+	| false -> true;;
+	
+neg true;;
+- : bool = false
+neg (10 >20);;
+- : bool = true
+```
+```ocaml
+(* Logical implication *)
+let imply v = match v with 
+		 (true,true)   -> true
+	   | (true,false)  -> false
+	   | (false,true)  -> true
+	   | (false,false) -> true;;
+	
+val imply : bool * bool -> bool = <fun>
+```	
+Or, we can make it even simpler:
+```ocaml
+let imply v = match v with 
+  (true,x)  -> x
+  | (false,x) -> true;;
+val imply : bool * bool -> bool = <fun>
+```
+
+For characters, OCaml also recognizes the range patterns in the form of 'c1' .. 'cn' as shorthand for any ASCII character in the range.
+```ocaml
+let is_vowel c = 
+	match c with 
+	('a' | 'e' | 'i' | 'o' | 'u') -> true
+	| _ -> false;;
+```	
+
+```ocaml	
+let is_upper x = 
+  match x with 
+  'A' .. 'Z' -> true
+  | _ -> false;;
+```	
+```ocaml
+(* get the last element of a list *)
+let rec last l=
+	match l with 
+	[]->[]
+	|[x]->[x]
+	|_::t->last t
+```	
+```ocaml
+(* check if x is member of a list *)
+let rec member lst x=
+		match lst with
+		|[]->false
+		|h::t->if h = x then true else member t x
+	;;
+```
+```ocaml
+(* append list b to list a *)
+let rec append a b=
+		match a with
+		|[]->b
+		|h::t-> h::append t b
+	;;
+```
+```ocaml
+(* insert x into a sorted list l in sorted order *)
+let rec insert x l=
+	match l with 
+	|[]->[x]
+	|h::t->if x < h then x::h::t 
+			else h::insert x t
+	
+(* insertion sort *)
+	let rec sort l = 
+		match l with 
+		[]->[]
+		|[x]->[x]
+		|h::t->insert h (sort t)
+```
+	
+```ocaml
+(* QuickSort *)
+let rec qsort = function
+		| [] -> []
+		| pivot :: rest ->
+		let left, right = List.partition (fun x-> x < pivot) rest in
+	qsort left @ [pivot] @ qsort right
+```	
+```ocaml
+(* MergeSort *)
+(** split list a into two even parts *)
+	let split a = 
+	let rec aux lst b c = 
+		  match lst with
+		  [] -> (b, c)
+		| hd :: tail -> aux tail c (hd :: b)
+	in aux a [] []
+
+(* merge lists xs and ys *)
+let rec merge cmp xs ys =
+		match (xs, ys) with
+		  ([], []) -> [] 
+		| (_, []) -> xs 
+		| ([], _) -> ys
+		| (xhd :: xtail, yhd :: ytail) -> 
+		if (cmp xhd yhd) then
+			xhd :: (merge cmp xtail ys)
+	  else
+			yhd :: (merge cmp xs ytail)
+	
+let rec mergesort cmp os  = 
+		match os with
+		[] -> []
+		| [x] -> [x]
+		| _ ->
+		  let (ls, rs) = split os in
+	merge cmp (mergesort cmp ls) (mergesort cmp rs)
+```
