@@ -942,8 +942,8 @@ type date = { month: string; day: int; year: int }
 ```
 Now, we can define a record:
 ```ocaml
-let today = { day=16; year=2017; month=“f”^“eb” };;
- - today : date = { day=16; year=2017; month=“feb” };;
+let today = { day = 16; year = 2017; month = "f" ^ "eb" };;
+ - today : date = { day = 16; year = 2017; month = "feb" };;
 ```
 We can access the components of a record by field name or pattern matching:
 * field name:
