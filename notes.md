@@ -724,3 +724,346 @@ let rec mergesort cmp os  =
 		  let (ls, rs) = split os in
 	merge cmp (mergesort cmp ls) (mergesort cmp rs)
 ```
+
+### Let Expressions
+let expressions bind local variables. 
+#### Syntax
+```ocaml
+let x = e1 in e2
+```
+`x` is a bound variable; `e1` is the binding expression; `e2` is the body expression.
+
+
+#### Evaluation
+```ocaml
+let x = e1 in e2
+```
+* Evaluate e1 to v1
+* Substitute `v1` for `x` in `e2`, yielding new expression `e2’`
+* Evaluate `e2’` to `v2`, the final result
+Let Expressions
+
+#### Type checking
+* If e1 : t1 and if assuming `x : t1` implies `e2 : t` Then `(let x = e1 in e2) : t`
+
+#### Let Definitions vs. Let Expressions 
+At the top-level, we write `let x = e;;` (* no `in e2` part *). This is called a let definition, not a let expression because it doesn’t, itself, evaluate to anything. Omitting `in` means “from now on”:
+```ocaml
+# let pi = 3.14;;
+(* pi is now bound in the rest of the top-level scope *)
+```
+
+We can write any expression at top-level, too
+```ocaml
+e;;
+```
+This says to evaluate `e` and then ignore the result. It is equivalent to 
+```ocaml
+let _ = e;;
+```
+Useful when `e` has a side effect, such as reading/writing a file, printing to the screen, etc.
+```ocaml
+let x = 37;;
+let y = x + 5;;
+print_int y;;
+print_string "\n";;
+```
+When run, outputs 42 to the screen.
+
+#### Let Expressions: Scope
+In `let x = e1 in e2`, var `x` is not visible outside of `e2`. For example: 
+```ocaml
+let pi = 3.14 in pi *. 3.0 *. 3.0;;
+print_float pi;; (*error: pi not bound *)
+```
+Here, it binds `pi` (only) in body of let (which is `pi *. 3.0 *. 3.0`). Outside `e2`, the var `x` is not visible. After `e2` `(pi *. 3.0 *. 3.0)` is evalued, `pi` is out of scope. Therefore, `print_float pi;;` shows `pi not bound error`. This is similar to the scoping in C/JAva.
+```c
+{
+  float pi = 3.14;
+  pi * 3.0 * 3.0;
+}
+pi; /* pi unbound! */
+```
+After the `}`, `pi` is not visible. 
+
+#### Examples
+```ocaml
+x;; (* Unbound value x *)
+
+let x = 1 in x + 1;;  (* 2 *)
+
+let x = x in x + 1;; (* Unbound value x *)
+
+
+let x = 1 in  x + 1 + x   ;; 	(* 3 *)
+
+(let x = 1 in x + 1) ;;  x;;   (* Unbound value x *)
+
+let x = 4 in (let x = x + 1 in x) 
+             let x = 4 + 1 in x
+             let x = 5 in x
+             5
+
+```
+
+#### Nested Let Expressions
+Uses of let can be nested 
+```ocaml
+let res = 
+  (let area = 
+    (let pi = 3.14 in
+    let r = 3.0 in
+    pi *. r *. r) in
+    (* pi and r are not visble here *)
+  area /. 2.0)
+  (* area is not visible here *)
+```
+Similar scoping possibilities C and Java
+```c
+float res; 
+{ float area;
+  { float pi = 3.14
+    float r = 3.0;
+    area = pi * r * r;
+  }  // p and r are not visible here.
+  res = area / 2.0;
+} // area is not visible here
+```
+You should generally avoid nested let Style. Sometimes a nested binding can be rewritten in a more linear style to make the code easier to understand. For example:
+```ocaml
+let res = 
+  (let area = 
+    (let pi = 3.14 in
+    let r = 3.0 in
+    pi *. r *. r) in
+  area /. 2.0);;
+```
+can be written as 
+```ocaml
+let res =
+  let pi = 3.14 in
+  let r = 3.0 in
+  let area = pi *. r *. r in
+  area /. 2.0;;
+
+```
+
+#### Let Expressions in Functions
+You can use let inside of functions for local variables:
+```ocaml
+let area d =
+  let pi = 3.14 in
+  let r = d /. 2.0 in
+  pi *. r *. r
+```
+
+#### Shadowing Names
+
+Shadowing is rebinding a name in an inner scope to have a different meaning. Some lagnauges such as java does not allow it. For example:
+```c
+int i;
+void f(float i) {
+  {
+    char *i = NULL;
+    ... // Here i refer to the inner character variable.
+  } // Here, i refers to the global integer variable
+}
+Similarly, OCaml allows shadowing variables:
+```ocaml
+let x = 3+4 in let x = 3*x in x+1
+let x = 7 in let x = 3*x in x+1
+let x = 3*7 in x+1
+let x = 21 in x+1
+21+1
+22
+```
+In this example, the `x` in the inner `let` expression `let x = 3*x in x+1` shadows the `x` in outer `let` expression  `let x = 3+4 in ...`
+
+### Tuples
+
+A tuple is an ordered sequence of n values written in parenthesis and separated by commas as `(e1, e2, ..., en)`. For instance, (330, "hello", true) is a 3-tuple that contains the integer `42` as its first component, the string `"hello"` as its second component, and the boolean value `true` as its third component. `()` denotes the empty tuple with `0` element. It is called "unit" in OCaml.
+
+### Tuple Types
+
+Tuple types use `*` to separate the type of its components. For example: 
+```ocaml
+(1, 2) : (int * int)
+(1, "string", 3.5) : int * string * float
+(1, ["a"; "b"], 'c') :int * string list * char
+[(1,2)] : (int * int) list
+[(1, 2); (3, 4)] :(int * int) list
+```
+Tuples are fixed size. The following code does not type check
+```ocaml
+ let foo x = 
+  match x with
+   (a, b) -> a + b
+   |(a, b, c) -> a + b + c
+```
+because the pattern `(a,b)` has the type `int * int`, and the second pattern has the type `int * int * int`, but all the pattern expressions in a `match` must have a same type. 
+
+#### Pattern Matching Tuples
+```ocaml 
+# let plus3 t =
+  match t with
+   (x, y, z) -> x + y + z;;
+plus3 : int * int * int -> int = <fun>
+
+# let plus3' (x, y, z) = x + y + z;;
+plus3' : int * int * int -> int = <fun>
+
+# let addOne (x, y, z) = (x+1, y+1, z+1);;
+addOne : int * int * int -> int * int * int = <fun>
+
+# plus3 (addOne (3, 4, 5));;
+: int = 15
+
+let sum ((a, b), c) = (a+c, b+c)
+- sum ((1, 2), 3) = (4, 5)
+
+let plusFirstTwo (x::y::_, a) = (x + a, y + a)
+- plusFirstTwo ([1; 2; 3], 4) = (5, 6)
+
+let tls (_::xs, _::ys) = (xs, ys)
+- tls ([1; 2; 3], [4; 5; 6; 7]) = ([2; 3], [5; 6; 7])
+```
+### Records
+A record represents a collection of values stored together as one, where each component is identified by a different field name. The syntax for a record type declaration is as follows:  
+```ocaml
+type <record-name> =
+    { <field> : <type>;
+      <field> : <type>;
+      ...
+    }
+```
+For example, we can define a record type `date` as:
+```ocaml
+type date = { month: string; day: int; year: int }
+```
+Now, we can define a record:
+```ocaml
+let today = { day=16; year=2017; month=“f”^“eb” };;
+ - today : date = { day=16; year=2017; month=“feb” };;
+```
+We can access the components of a record by field name or pattern matching:
+* field name:
+    ```ocaml 
+    print_string today.month;; (* prints feb *)
+    ```
+* pattern matching
+```ocaml
+type date = { month: string; day: int; year: int }
+let f x = 
+   match x with 
+     {year; day; month}-> Printf.printf "%d\t%s\t%d\n" year month day
+# f {year=2024;day=6;month="Feb"}   (* 2023	Feb	6 *)
+```
+We can also bind records fields to pattern variables:
+```ocaml
+let f x = 
+  match x with 
+  {year=y; day=d; month=m} -> Printf.printf "%d\t%s\t%d\n" y m d
+
+# f {year=2024;day=6;month="Feb"}   (* 2023	Feb	6 *)
+```
+There is a syntactic sugar for the match 
+```ocaml
+let f3 {year; day; month} = Printf.printf "%d\t%s\t%d\n" year month day
+```
+or
+```ocaml
+let f {year =y; day=d; month=m} = Printf.printf "%d\t%s\t%d\n" y m d
+```
+
+* Using `let` expressions
+You can also destruct a record using let expressions. 
+```ocaml
+let today = {year=2023;day=6;month="Feb"};;
+let {year; day; month} = today in Printf.printf "%d\t%s\t%d\n" year month day;;
+let {year =y; day=d; month=m} = today in Printf.printf "%d\t%s\t%d\n" y m d;;
+````
+Or access any number of fields of the record:
+```ocaml
+let today = {year=2023;day=6;month="Feb"};;
+let {year} = today in Printf.printf "%d\n" year;;
+let {year =y; day=d} = today in Printf.printf "%d\t%d\n" y m;;
+````
+
+#### Quiz
+What is the type of shift?
+```ocaml
+type point = {x:int; y:int}
+let shift { x=px } = [px]::[]
+```
+The type of `shift` is `point -> int list list`. Argument `{ x=px }` is a record with a field `x`. We know it is the `pont`.  `{ x=px }`also binds the field `x` of `point` to `px`. Because `x` is `int`, `px` is also `int`. If `px` is `int`, then `[px]` is `int list` and `[px]::[]` is an `int list list`. 
+
+### Anonymous Functions
+In OCaml, we use `fun` to make a function with no name. For example:
+```ocaml
+fun x -> x + 3
+```
+Here, `x` is the parameter and `x+3` is the body. We can apply this anonymous function as:
+```ocaml
+(fun x -> x + 3) 5  (* 8 *)
+```
+The evaluation and typechecking rules are same as functions. 
+### Quiz
+What is this expression’s type?
+```ocaml
+(fun x y -> x) 2 3
+```
+Type of `(fun x y-> x)` is `'a->'b->'a`. Because we apply this anonymous function to arguments `2 3`, `'a` and `'b` will be restricted to `int`s. Therefore, the return type will be an `int`. 
+```ocaml
+(fun x y -> x) 2 3;;
+- : int = 2
+```
+
+### Functions and Binding
+In OCaml, functions are first-class, so you can bind them to other names as you like
+```ocaml
+let f x = x + 3;;
+let g = f;;
+g 5
+```
+In fact, let for functions is a syntactic shorthand
+```ocaml
+let f x = body   
+```
+is semantically equivalent to
+```ocaml
+let f = fun x ->  body
+```
+
+```ocaml
+let next x = x + 1
+```
+is the short for 
+```ocaml
+let next = fun x -> x + 1
+```
+and, 
+```ocaml
+let plus x y = x + y
+```
+is the short for 
+```ocaml
+let plus = fun x y -> x + y
+```
+#### Quiz
+What does this evaluate to?
+```ocaml
+let f = fun x -> 0 in
+let g = f in
+let h = fun y -> g (y+1) in
+h 1
+```
+Solution:
+```ocaml
+h 1
+(fun y -> g (y+1)) 1
+g (1+1)
+g 2
+f 2
+(fun x -> 0) 2
+0
+```
