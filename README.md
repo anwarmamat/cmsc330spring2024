@@ -9,6 +9,7 @@
 * [Map and Fold](map_fold_tail.md#the-map-function)
 * [Tail Recursion](map_fold_tail.md#tail-recursion)
 * [Data Types (Variants)](datatypes.md)
+* [Exception](exception.md)
 ## Examples 
 * [Dune examples](dune)
 * [Map & Fold Examples](map_fold_tail.md#examples)
