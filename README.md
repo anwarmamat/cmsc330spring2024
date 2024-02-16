@@ -8,6 +8,7 @@
 * [Anonymous Functions](notes.md#anonymous-functions)
 * [Map and Fold](map_fold_tail.md#the-map-function)
 * [Tail Recursion](map_fold_tail.md#tail-recursion)
+* [Dta Types (Variants)](datatypes.md)
 ## Examples 
 * [Dune examples](dune)
 * [Map & Fold Examples](map_fold_tail.md#examples)
