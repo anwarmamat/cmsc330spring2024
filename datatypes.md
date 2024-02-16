@@ -331,4 +331,52 @@ let rec inorder t =
 
 inorder t2;;
 - : char list = ['d'; 'b'; 'e'; 'a'; 'c'; 'g'; 'f']
+
+(* Preorder traversal *)
+let rec preorder t = 
+	match t with 
+	|Leaf->[]
+	|Node(l,v,r)->
+			 v::(preorder l) @ (preorder r)
+
+preorder t2;;
+- : char list = ['a'; 'b'; 'd'; 'e'; 'c'; 'f'; 'g']
+
+let rec postorder t = 
+	match t with 
+	|Leaf->[]
+	|Node(l,v,r)->
+			(postorder l)@
+			(postorder r)@
+	    [v]
+
+# postorder t2;;
+- : char list = ['d'; 'e'; 'b'; 'g'; 'f'; 'c'; 'a']
+
+(* Level order traversal *)
+let levelOrder t = 
+	let q=Queue.create () in 
+  let _ = Queue.push t q in 
+  let rec aux queue =
+		if Queue.is_empty queue then () else
+		let c = Queue.pop queue in
+			match c with 
+			|Leaf ->aux queue
+			|Node(l,v,r)->Printf.printf "%c," v;
+				let _= Queue.push l queue in
+				let _ = Queue.push r queue in
+		aux queue
+  in aux q
+
+# levelOrder t2;;
+a,b,c,d,e,f,g,- : unit = ()
+
+(* Build a binary search tree from a list *)
+```ocaml
+let root = List.fold_left insert Leaf [100;50;200;10;60;250;300];;
+
+preorder root;;
+inorder root;;
+postorder root;
+level_order root;;
 ```
