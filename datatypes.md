@@ -27,8 +27,8 @@ let ls = [Int 10; Str "alice"; Int 20; Float 1.5]
 (* print a gen type value *)
 let print_gen x = 
   match x with 
-   |Int i -> Printf.printf “%d\n” i
-   |Str s -> Printf.printf “%d\n” s
+   |Int i -> Printf.printf "%d\n" i
+   |Str s -> Printf.printf "%d\n" s
 (* print a gen list *) 
 List.iter print_gen ls
 ```
@@ -54,8 +54,8 @@ let flip x =
 let rec count_heads x =
   match x with
     [] -> 0
-  | (Heads::x’) -> 1 + count_heads x’
-  | (_::x’) -> count_heads x’
+  | (Heads::x') -> 1 + count_heads x'
+  | (_::x') -> count_heads x'
 ```
 
 ### Definition of Variants
@@ -115,7 +115,7 @@ let divide x y =
 let string_of_opt o =
   match o with
     Some i -> string_of_int i
-  | None -> “nothing”
+  | None -> "nothing"
 
 let p = divide 1 0;;
   print_string 
@@ -147,7 +147,7 @@ let hd l =
   | x::_ -> Some x
 let p = hd [];;    (* p = None *)
 let q = hd [1;2];; (* q = Some 1 *) 
-let r = hd [“a”];; (* r = Some “a” *)
+let r = hd ["a"];; (* r = Some “a” *)
 ```
 
 ### Recursive Data Types
