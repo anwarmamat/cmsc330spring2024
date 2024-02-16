@@ -329,7 +329,7 @@ let rec inorder t =
 	|Leaf->[]
 	|Node(l,v,r)-> (inorder l)@[v]@(inorder r)
 
-inorder t2;;
+# inorder t2;;
 - : char list = ['d'; 'b'; 'e'; 'a'; 'c'; 'g'; 'f']
 
 (* Preorder traversal *)
@@ -339,7 +339,7 @@ let rec preorder t =
 	|Node(l,v,r)->
 			 v::(preorder l) @ (preorder r)
 
-preorder t2;;
+# preorder t2;;
 - : char list = ['a'; 'b'; 'd'; 'e'; 'c'; 'f'; 'g']
 
 let rec postorder t = 
