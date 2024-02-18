@@ -1,0 +1,4 @@
+(executable
+ (public_name regex)
+ (name main)
+ (libraries regex))
