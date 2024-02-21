@@ -11,6 +11,7 @@
 * [Data Types (Variants)](datatypes.md)
 * [Exception](exception.md)
 * [Closures](closures.md)
+* [Imperative OCaml](imperative.md)
 ## Examples 
 * [Dune examples](dune)
 * [Map & Fold Examples](map_fold_tail.md#examples)
