@@ -15,3 +15,6 @@
 * [Dune examples](dune)
 * [Map & Fold Examples](map_fold_tail.md#examples)
 * [List Recursive Function Example](notes.md#lists-and-recursion)
+* [Expression evaluation](examples/expr.ml)
+* [Natural number](examples/nat.ml)
+* [Implement map (dictionary) using functions](examples/map_func.ml)
