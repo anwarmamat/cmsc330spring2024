@@ -264,8 +264,7 @@ let rec sum t =
   match t with
   Leaf -> 0
   | Node(l,v,r)-> (sum l) + v + (sum r)
-```
-```ocaml
+
 (* Count the number of nodes *)
 let rec count tree = 
   match tree with
