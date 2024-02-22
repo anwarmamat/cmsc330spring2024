@@ -227,7 +227,7 @@ let c = Cons(10,Cons(20,Cons(30,Nil)));;
 print_int (list_sum c);; (* 60 *)
 ```
 
-#### Trees
+#### Binary Trees
 We can use variants to represnt tree data structures as well. Here is the definition of a binary tree:
 ```ocaml
 type 'a tree =
@@ -379,4 +379,64 @@ preorder root;;
 inorder root;;
 postorder root;
 level_order root;;
+```
+#### N-ary Trees
+N-ary tree is a collection of nodes where each node stores a data of type `'a` and its children, a list of `'a trees`. When this list is empty, then the Node is implicitly a leaf node. Note that leaf and inner nodes all contain data in this representation of a tree. Type:
+```ocaml
+type 'a n_tree = Node of 'a * 'a n_tree list
+```
+Here is a tree that you can use for simple tests of your functions.
+```ocaml
+             1
+          /     \
+         /        \
+        2          7
+     /  |  \        \
+    3   4   5        8
+        |
+        6
+
+let t =
+  Node
+    ( 1,
+      [
+        Node
+          ( 2,
+            [ 
+              Node (3, []); 
+              Node (4, [ Node (6, []) ]); 
+              Node (5, []) 
+            ]
+          );
+        Node (7, [ Node (8, []) ]);
+      ] )
+```
+* Count the nodes in an n-ary tree
+```ocaml
+let rec nodes t =
+  match t with
+  | Node (x, children) -> 1 + List.fold_left ( + ) 0 (List.map nodes children)
+
+# nodes t;;
+- : int = 8
+```
+* Calculate the sum an int n-ary tree
+```ocaml
+let rec sum t =
+  match t with
+  | Node (x, children) -> x + List.fold_left ( + ) 0 (List.map sum children)
+
+# sum t;;
+- : int = 36
+```
+* Print an n-anry tree
+```ocaml
+let rec print t =
+  match t with
+  | Node (x, children) ->
+      Printf.printf "%d," x;
+      List.iter print children
+
+# print t;;
+1,2,3,4,6,5,7,8,- : unit = ()
 ```
