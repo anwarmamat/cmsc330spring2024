@@ -273,21 +273,21 @@ let rec sum t =
 	let rec count tree = 
 		match tree with
 		Leaf->0
-		|Node(a,b,c)->1 + count(b) + count(c);;
+		|Node(l,v,r)->1 + count(l) + count(r);;
 
 (* Coune the number of leaves *)
 
 	let rec count_leaves = function
 		| Leaf -> 0
-		| Node(_, Leaf, Leaf) -> 1
-		| Node(_, l, r) -> count_leaves l + count_leaves r;;
+		| Node(Leaf,_, Leaf) -> 1
+		| Node(l,_, r) -> count_leaves l + count_leaves r;;
 
 (* Collect values of leaf nodes in a list *) 
 
 	let rec leaves = function
 		| Leaf -> []
 		| Node(Leaf, c, Leaf) -> [c]
-		| Node(l,_, r) -> leaves l @ leaves r
+		| Node(l, _, r) -> leaves l @ leaves r
 
 (* Collect the internal nodes of a binary tree in a list *)
 
