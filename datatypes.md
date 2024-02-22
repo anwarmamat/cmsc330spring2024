@@ -262,41 +262,34 @@ let t2 =
 (* sun of an int tree *)
 let rec sum t = 
   match t with
-    Leaf -> 0
-   | Node(l,v,r)-> (sum l) + v + (sum r)
+  Leaf -> 0
+  | Node(l,v,r)-> (sum l) + v + (sum r)
 ```
 ```ocaml
-
-
 (* Count the number of nodes *)
-
-	let rec count tree = 
-		match tree with
-		Leaf->0
-		|Node(l,v,r)->1 + count(l) + count(r);;
+let rec count tree = 
+  match tree with
+	Leaf->0
+	|Node(l,v,r)->1 + count(l) + count(r);;
 
 (* Coune the number of leaves *)
-
-	let rec count_leaves = function
-		| Leaf -> 0
-		| Node(Leaf,_, Leaf) -> 1
-		| Node(l,_, r) -> count_leaves l + count_leaves r;;
+let rec count_leaves = function
+  | Leaf -> 0
+	| Node(Leaf,_, Leaf) -> 1
+	| Node(l,_, r) -> count_leaves l + count_leaves r;;
 
 (* Collect values of leaf nodes in a list *) 
-
-	let rec leaves = function
-		| Leaf -> []
-		| Node(Leaf, c, Leaf) -> [c]
-		| Node(l, _, r) -> leaves l @ leaves r
+let rec leaves = function
+	| Leaf -> []
+	| Node(Leaf, c, Leaf) -> [c]
+	| Node(l, _, r) -> leaves l @ leaves r
 
 (* Collect the internal nodes of a binary tree in a list *)
-
 let rec internals = function
 	| Leaf | Node(Leaf,_, Leaf) -> []
 	| Node(l, v, r) -> internals l @ (v :: internals r)
 		
 (* Collect the nodes at a given level in a list *)
-
 let rec at_level t n = match t with
 	| Leaf -> []
 	| Node(left, c, right) ->
@@ -317,7 +310,6 @@ let rec insert t n =
       else Node(left,value,right)
 
 (* Height of a tree *)
-
 let rec height t=
 	match t with 
 	|Leaf -> 0
