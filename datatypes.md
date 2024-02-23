@@ -247,15 +247,17 @@ let t = Node(Leaf, 100, Node(Leaf,200,Leaf))
       Leaf   Leaf
 
 let t2 =
-		Node(Node(Node(Leaf, 'd', Leaf),'b', Node(Leaf,'e', Leaf)), 'a', Node(Leaf,'c', Node(Node(Leaf, 'g', Leaf),'f', Leaf)));;
+	Node(Node(Node(Leaf, 'd', Leaf),'b', Node(Leaf,'e', Leaf)), 'a', Node(Leaf,'c', Node(Node(Leaf, 'g', Leaf),'f', Leaf)));;
 
         a
       /    \
     b       c
    / \     / \
   /   \        \
-  d    e        g
- /\    /\       /\    
+  d    e        f
+ /\    /\      / \    
+              g
+             / \ 
 ```
 #### Recusrive function on a tree
 ```ocaml
