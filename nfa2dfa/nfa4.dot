@@ -1,0 +1,16 @@
+digraph nfa4 {
+	fontname="Helvetica,Arial,sans-serif"
+	node [fontname="Helvetica,Arial,sans-serif"]
+	edge [fontname="Helvetica,Arial,sans-serif"]
+	rankdir=LR;
+    ordering="in"
+	node [shape = doublecircle]; D
+    node [shape=point]ENTRY;
+    node [shape = circle];
+	ENTRY->A
+	A -> B [label = "0"];
+    B -> D [label = "1"];
+    A -> C [label = "ε"];
+    C -> C [label = "0,1"];
+    C -> D [label = "1"];
+}

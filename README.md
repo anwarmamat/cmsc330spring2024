@@ -19,3 +19,4 @@
 * [Expression evaluation](examples/expr.ml)
 * [Natural number](examples/nat.ml)
 * [Implement map (dictionary) using functions](examples/map_func.ml)
+* [Subset Construction (NFA to DFA Conversion)](nfa2dfa/nfa2dfa.md)

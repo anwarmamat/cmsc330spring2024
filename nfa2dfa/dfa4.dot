@@ -1,0 +1,21 @@
+digraph dfa4 {
+	fontname="Helvetica,Arial,sans-serif"
+	node [fontname="Helvetica,Arial,sans-serif"]
+	edge [fontname="Helvetica,Arial,sans-serif"]
+	rankdir=LR;
+    ordering="out"
+	node [shape = doublecircle]; "{C,D}"
+    node [shape=point]ENTRY;
+    node [shape = circle];
+	ENTRY->"{A,C}"
+	"{A,C}" -> "{B,C}" [label = "0"];
+    "{A,C}" -> "{C,D}" [label = "1"];
+    "{C,D}"->"{C,D}" [label = "1"];
+    "{B,C}"->"C" [label = "0"];
+    "{C,D}"->"C" [label = "0"];
+    "{B,C}"->"{C,D}" [label = "1"];
+    
+    
+    "C"->"C"[label = "0"];
+    "C"->"{C,D}"[label = "1"];
+}

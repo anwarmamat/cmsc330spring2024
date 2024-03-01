@@ -1,0 +1,18 @@
+digraph dfa5 {
+	fontname="Helvetica,Arial,sans-serif"
+	node [fontname="Helvetica,Arial,sans-serif"]
+	edge [fontname="Helvetica,Arial,sans-serif"]
+	rankdir="LR";
+    ordering="in"
+	node [shape = doublecircle]; "{2,3,4}";"{2,3}"
+    node [shape=point]ENTRY;
+    node [shape = circle];
+	ENTRY->0
+	0 -> "{0,1}" [label = "a"];
+    "{0,1}" -> "{0,1}" [label = "a"];
+    "{0,1}" -> "{2,3}" [label = "b"];
+    "{2,3}"->"{0,1}"  [label = "a"];
+    "{2,3}"->"{2,3,4}"  [label = "b"];
+    "{2,3,4}"->"{2,3,4}"  [label = "b"];
+    "{2,3,4}"->"{0,1}"  [label = "a"];
+}

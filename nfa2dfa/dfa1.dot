@@ -1,0 +1,14 @@
+digraph dfa1 {
+	fontname="Helvetica,Arial,sans-serif"
+	node [fontname="Helvetica,Arial,sans-serif"]
+	edge [fontname="Helvetica,Arial,sans-serif"]
+	rankdir=LR;
+	node [shape = doublecircle]; 2;"{0,2}"
+    node [shape=point]ENTRY;
+    node [shape = circle];
+    ENTRY->"{0,2}";
+	"{0,2}" -> 1 [label = "a"];
+    "{0,2}" -> 2 [label = "c"];
+	1 -> "{0,2}" [label = "b"];
+    2 -> 2 [label ="c"]
+}
