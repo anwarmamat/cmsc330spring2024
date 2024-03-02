@@ -74,3 +74,10 @@
 |{1,2,3} |1 |{1,2,3}|
 #### DFA
 ![DFA 6](images/dfa6.svg)
+
+
+### RE to NFA Example
+```
+ab*|cd
+```
+![NFA 7](images/nfa7.svg)

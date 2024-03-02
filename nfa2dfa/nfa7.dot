@@ -1,0 +1,24 @@
+digraph nfa7 {
+	fontname="Helvetica,Arial,sans-serif"
+	node [fontname="Helvetica,Arial,sans-serif"]
+	edge [fontname="Helvetica,Arial,sans-serif"]
+	rankdir=LR;
+    ordering="in"
+	node [shape = doublecircle] ;"S1"
+    node [shape=point]ENTRY;
+    node [shape = circle];
+	ENTRY->"S0"
+	"S0" -> 1 [label = "ε"];
+    "S0" -> 2 [label = "ε"];
+    1 -> 3 [label = "a"];
+    2 -> 4 [label = "c"];
+    3 -> 5 [label = "ε"];
+    {4 -> 6; 5 -> 7 [label = "ε"]}
+    {7 -> 8 ; 6 -> 10 [label = "d"];}
+    8 -> 9 [label = "ε"];
+    5 -> 9 [label = "ε"];
+    9 -> 5 [label = "ε"];
+    {9 ->"S1"; 10 -> "S1"} [label = "ε"];
+    {rand=same 9,10;}
+    
+}
