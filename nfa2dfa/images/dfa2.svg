@@ -47,7 +47,7 @@
 <g id="edge4" class="edge"><title>{2,3}&#45;&gt;4</title>
 <path fill="none" stroke="black" d="M269.4,-32C280.201,-32 292.665,-32 303.809,-32"/>
 <polygon fill="black" stroke="black" points="303.991,-35.5001 313.991,-32 303.991,-28.5001 303.991,-35.5001"/>
-<text text-anchor="middle" x="292" y="-34.8" font-family="Helvetica,Arial,sans-serif" font-size="14.00">a</text>
+<text text-anchor="middle" x="292" y="-34.8" font-family="Helvetica,Arial,sans-serif" font-size="14.00">b</text>
 </g>
 <!-- {2,3}&#45;&gt;{2,3} -->
 <g id="edge3" class="edge"><title>{2,3}&#45;&gt;{2,3}</title>
