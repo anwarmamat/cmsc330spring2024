@@ -1,0 +1,14 @@
+digraph nfa6 {
+	fontname="Helvetica,Arial,sans-serif"
+	node [fontname="Helvetica,Arial,sans-serif"]
+	edge [fontname="Helvetica,Arial,sans-serif"]
+	rankdir=LR;
+    ordering="in"
+	node [shape = doublecircle] ;3;
+    node [shape=point]ENTRY;
+    node [shape = circle];
+	ENTRY->1
+	1 -> 1 [label = "a,b"];
+    1 -> 2 [label = "b"];
+    2 -> 3 [label = "b"];
+}

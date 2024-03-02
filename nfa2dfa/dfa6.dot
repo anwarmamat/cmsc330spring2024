@@ -1,0 +1,17 @@
+digraph dfa6 {
+	fontname="Helvetica,Arial,sans-serif"
+	node [fontname="Helvetica,Arial,sans-serif"]
+	edge [fontname="Helvetica,Arial,sans-serif"]
+	rankdir=LR;
+    ordering="in"
+	node [shape = doublecircle] ;"{1,2,3}";
+    node [shape=point]ENTRY;
+    node [shape = circle];
+	ENTRY->1
+	1 -> 1 [label = "a"];
+    1 -> "{1,2}" [label = "b"];
+    "{1,2}" -> 1 [label = "a"];
+    "{1,2}" -> "{1,2,3}" [label = "b"];
+    "{1,2,3}" -> "{1,2,3}" [label = "b"];
+    "{1,2,3}" -> 1 [label = "a"];
+}

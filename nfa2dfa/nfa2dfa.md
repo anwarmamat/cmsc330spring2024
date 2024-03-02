@@ -56,3 +56,21 @@
 |{2,3,4} |{0,1} |{2,3,4}|
 
 ![DFA 5](images/dfa5.svg)
+
+
+### Example 6
+#### Language:
+```
+ (a|b)*bb
+```
+#### NFA
+![NFA 6](images/nfa6.svg)
+
+
+|States | a| b |
+|:---:|:---:|:---:|
+|1 |1 |{1,2}|
+|{1,2} |1 |{1,2,3}|
+|{1,2,3} |1 |{1,2,3}|
+#### DFA
+![DFA 6](images/dfa6.svg)
