@@ -41,7 +41,7 @@ Let $F = \\{r \mid \exists s \in r \text{ with } s \in F_n \\}$
 
 |States   | a  | 
 |:---:|:---:|
-|{1,3,4}|{1,2,3,4}  | 
+|{1,2,4}|{1,2,3,4}  | 
 |{1,2,3,4}| {1,2,3,4}  | 
 
 ![DFA 3](images/dfa3.svg)
