@@ -13,12 +13,12 @@ digraph nfa7 {
     1 -> 3 [label = "a"];
     2 -> 4 [label = "c"];
     3 -> 5 [label = "ε"];
-    {4 -> 6; 5 -> 7 [label = "ε"]}
-    {7 -> 8 ; 6 -> 10 [label = "d"];}
+    {4 -> 6 [label = "ε"]; 5 -> 7[label = "ε"]} 
+    {7 -> 8  [label = "b"] ;6 -> 10 [label = "d"]} 
     8 -> 9 [label = "ε"];
     5 -> 9 [label = "ε"];
     9 -> 5 [label = "ε"];
-    {9 ->"S1"; 10 -> "S1"} [label = "ε"];
+    {9 ->"S1"[label = "ε"]; 10 -> "S1"[label = "ε"]}
     {rand=same 9,10;}
     
 }
