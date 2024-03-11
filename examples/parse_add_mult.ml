@@ -1,9 +1,10 @@
-(* arith : user-defined variant datatype for arithmetic expressions  *)
+(**
+Recursive Descent Parser Example    
+*)
 
-type expr = 
-  Num of int 
-  | Add of expr * expr 
-  | Mult of expr * expr
+(* expr : user-defined variant datatype for arithmetic expressions  *)
+
+type expr = Num of int | Add of expr * expr | Mult of expr * expr
 (*
   function a_to_str : arith -> string
         converts arithmetic expression into a string
@@ -23,7 +24,6 @@ let rec eval e =
   | Num n -> n
   | Add (a1, a2) -> ( match (eval a1, eval a2) with n1, n2 -> n1 + n2)
   | Mult (a1, a2) -> ( match (eval a1, eval a2) with n1, n2 -> n1 * n2)
-
 
 exception IllegalExpression of string
 exception ParseError of string
@@ -80,7 +80,6 @@ let string_of_token t =
   | Tok_LParen -> "("
   | Tok_RParen -> ")"
   | Tok_END -> "END"
-
 
 (* Parser *)
 (*
@@ -145,7 +144,7 @@ and parse_B tokens =
   | Tok_LParen ->
       let t = match_token tokens Tok_LParen in
       let e2, t2 = parse_S t in
-      let _=Printf.printf "%s\n" (string_of_token (lookahead tokens)) in 
+      let _ = Printf.printf "%s\n" (string_of_token (lookahead tokens)) in
       if lookahead t2 = Tok_RParen then (e2, match_token t2 Tok_RParen)
       else raise (ParseError "parse_B 1")
   | _ -> raise (ParseError "parse_B 2")
@@ -181,6 +180,6 @@ let eval_str str =
 eval_str "1*2*3*4*5*6";;
 eval_str "1+2+3*4*5+6";;
 eval_str "1+(2+3)*4*5+6";;
-eval_str "100 *      (10 + 20)";;
+eval_str "100 *      (10 + 20)"
 (* eval_str "(2^5)*2";;  error *)
 (* eval_str "1++12" error *)
