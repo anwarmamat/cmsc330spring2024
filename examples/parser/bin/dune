@@ -1,0 +1,7 @@
+(executable
+ (public_name parse)
+ (name main)
+ (libraries Libs)
+     
+
+ )

@@ -1,0 +1,6 @@
+(library
+ (name Libs)
+  (libraries str)
+  (preprocess 
+    (pps ppx_deriving.show ppx_inline_test ppx_assert))
+ )
