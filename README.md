@@ -20,3 +20,7 @@
 * [Natural number](examples/nat.ml)
 * [Implement map (dictionary) using functions](examples/map_func.ml)
 * [Subset Construction (NFA to DFA Conversion)](nfa2dfa/nfa2dfa.md)
+* Recursive Descent Parser
+    * [Addition and Multiplication Expression](examples/parse_add_mult.ml)
+    * [Addition and Multiplication Expression (Dune project)](examples/parser)
+    * [Parser example from the lecture slides (with visualiztion)](examples/parser_class_example)
