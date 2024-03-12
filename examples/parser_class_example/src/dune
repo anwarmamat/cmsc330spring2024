@@ -1,0 +1,6 @@
+(library
+  (name parser2)
+  (modules lexer parser parsetree)
+  (libraries str ocamlgraph)
+  )
+  

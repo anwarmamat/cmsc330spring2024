@@ -1,0 +1,4 @@
+(executables
+  (names main)
+  (libraries parser2 ounit2 str))
+	   
