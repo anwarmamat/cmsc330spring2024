@@ -154,28 +154,25 @@ and parse_B tokens =
   	evaluate value of AST
 *)
 
+let pp = Printf.printf
+(*
+  function eval_str : given string, parse string, build AST,
+  	evaluate value of AST
+*)
 let eval_str str =
   let tokens = tokenize str in
 
-  print_string "Input token list = ";
-  List.iter (fun x -> print_string (" " ^ string_of_token x)) tokens;
-  print_endline "";
+  pp "Input token list = ";
+  List.iter (fun x -> pp " %s" (string_of_token x)) tokens;
+  pp "\n";
 
-  let a, t = parse_S tokens in
-
+  let (a, t) = parse_S tokens in
   if t <> [ Tok_END ] then raise (IllegalExpression "parse_S");
-
-  print_string "AST produced = ";
-  print_endline (expr_to_str a);
-
+  pp "AST produced = %s\n" (expr_to_str a);
   let v = eval a in
-
-  print_string "Value of AST = ";
-  print_int v;
-  print_endline "";
-
-  v
+  pp "Value of AST = %d\n" v;
 ;;
+
 
 eval_str "1*2*3*4*5*6";;
 eval_str "1+2+3*4*5+6";;
