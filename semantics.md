@@ -121,6 +121,7 @@ We are using inference rules where `C` is our judgment about evaluation, i.e., t
 ### Rules of Inference
 #### Num
 Suppose e is a numeral n, then e evaluates to itself, i.e., n ⇒ n
+
 ![Inference Rule:Sum](images/num.png "Inference Rules:Num")
 
 This rules translates to the code
@@ -150,7 +151,9 @@ Suppose e is a let expression let x = e1 in e2
 * If e1 evaluates to v, i.e., e1 ⇒ v1
 * If e2{v1/x} evaluates to v2, i.e., e2{v1/x} ⇒ v2
 * Then e evaluates to v2, i.e., let x = e1 in e2 ⇒ v2
+
 ![Inference Rule:Let](images/let.png "Inference Rules:Let")
+
 This rules translates to the code
 ```
 | Let (x,e1,e2) ->
@@ -173,7 +176,8 @@ Goal: Show that let x = 4 in x+3 ⇒ 7
 ```
 2 + (3 + 8) ⇒ 13
 ```
-Solution: 
+Solution:
+
 ![Quiz1](images/quiz1.png "Quiz1")
 
 
@@ -401,11 +405,15 @@ type exp =
 
 ```
 Rule for Closures: Lexical/Static Scoping
+
 ![Closure Rules](images/rule_closure_static.png "Rules for Closure")
+
 Creating a closure captures the current environment `A`. Calling a function evaluates the body of the closure’s code e with function closure’s environment A’ extended with parameter x bound to argument v1
 
 Rule for Closures: Dynamic Scoping
+
 ![Closure Rules](images/rule_closure_dynamic.png "Rules for Closure_Dynamoc Scoping")
+
 Creating a closure ignores the current environment `A`. Calling a function evaluates the body of the closure’s code e with the current environment A extended with parameter x bound to argument v1. 
 ### Scaling up
 Operational semantics (and similarly styled typing rules) can handle full languages
