@@ -12,6 +12,7 @@
 * [Exception](exception.md)
 * [Closures](closures.md)
 * [Imperative OCaml](imperative.md)
+* [Operational Semantics](semantics.md)
 ## Examples 
 * [Dune examples](dune)
 * [Map & Fold Examples](map_fold_tail.md#examples)
@@ -24,3 +25,5 @@
     * [Addition and Multiplication Expression](examples/parse_add_mult.ml)
     * [Addition and Multiplication Expression (Dune project)](examples/parser)
     * [Parser example from the lecture slides (with visualiztion)](examples/parser_class_example)
+* [Substitution based evaluator (interpreter)](examples/eval_subst.ml)
+* [Environment based evaluator (interpreter)](examples/interp.ml)
