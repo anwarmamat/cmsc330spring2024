@@ -24,6 +24,7 @@ prop_reverse [1.0; 2.22]
 ### QCheck: Property-based Randomized Testing
 [QCheck documentation](https://c-cube.github.io/qcheck/0.6/QCheck.html)
 
+[QCheck Example](examples/qcheck/)
 QCheck is a Property-Based Testing framework for OCaml. It is a framework that repeatedly generates random inputs, and uses them to confirm that properties hold. For example, it randomly generaly lists to confirm the `prop-reverse` property of the `rev` function hold. 
 ```
 let prop_reverse l = rev (rev l) = l
@@ -44,30 +45,35 @@ QCheck tests are described by a generator that generates random inputs and a pro
 ```
 	#require “qcheck”
 ```
-IN a `dune` project, add the following to the `dune` file:
+In a `dune` project, add the following to the `dune` file:
 ```
  (libraries qcheck)
 ```
 
 ### Example
 ```
+(* List reverse *)
 let rec rev l = 
   match l with 
    [] -> []
    | h::t -> rev t @ h
 
+(* a property that holds for the list reverse *)
 let prop_reverse l = rev (rev l) = l
+
 
 (* #require "qcheck" *)
 open QCheck
 
+(* A QCheck test *)
 let test =
-   Test.make 
-  ~count:1000 
-  ~name:”reverse_test” 
-  (list small_int) 
- (fun x-> prop_reverse x)
+   Test.make  (* make a test *)
+  ~count:1000  (* number of random tests *)
+  ~name:”reverse_test”  (* name of the test *)
+  (list small_int) (* an arbitrary. Here is generates a list of random ints *)
+ (fun x-> prop_reverse x) (* calls the property *)
 
+(* run the QCheck Test *)
 QCheck_runner.run_tests ~verbose:true [test];;
 ```
 Test output
