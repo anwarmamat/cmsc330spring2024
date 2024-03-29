@@ -67,22 +67,23 @@ open QCheck
 
 (* A QCheck test *)
 let test =
-   Test.make  (* make a test *)
-  ~count:1000  (* number of random tests *)
-  ~name:”reverse_test”  (* name of the test *)
-  (list small_int) (* an arbitrary. Here is generates a list of random ints *)
- (fun x-> prop_reverse x) (* calls the property *)
+   Test.make      (* make a test *)
+   ~count:1000    (* number of random tests *)
+   ~name:”reverse_test”  (* name of the test *)
+   (list small_int) (* an arbitrary. Here is generates a list of random ints *)
+  (fun x-> prop_reverse x) (* calls the property *)
 
 (* run the QCheck Test *)
 QCheck_runner.run_tests ~verbose:true [test];;
 ```
-Test output
+Test output:
 ```
 generated   error   fail   pass / total     time test name
 [✓] 1000      0      0    1000 / 1000     0.2s reverse_test
 =====================================================
 success (ran 1 tests)
 ```
+It shows that QCheck generated 1000 random tests and all of the 1000 tests passed. 
 
 ### Buggy Reverse
 Assume the `rev` function is implemented as:
