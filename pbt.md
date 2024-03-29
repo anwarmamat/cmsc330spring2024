@@ -1,4 +1,4 @@
-## QCheck- Property-Based Randomized Testing
+## QCheck: Property-Based Randomized Testing
 
 Writing good unit tests are difficult. Let's test `rev` (list reverse) with a unit test
 ```
@@ -9,17 +9,19 @@ let rec rev l =
 
 let test_reverse = reverse [1;2;3] = [3;2;1]
 ```
-But this test does not show if the `rev` function works correctly with large lists, string lists with unicode characters etc. Instead of unit tests on specific inputs and outputs, what if we could test properties that hold for all inputs? For example, `rev` function has the following property:
+But this test does not show if the `rev` function works correctly with large lists, lists with large integers, lists with duplicate values, string lists with unicode characters, etc. 
+
+Instead of unit tests on specific inputs and outputs, what if we could test properties that hold for all inputs? For example, `rev` function has the following property: reversing a list twice gives back the original list.
 ```
 let prop_reverse l = rev (rev l) = l
 ```
-I.e., reversing a list twice gives back the original list. In other words, each of the following evaluates to true: 
+In other words, each of the following evaluates to true: 
 ```
 prop_reverse []
 prop_reverse [1; 2; 3]
 prop_reverse [1.0; 2.22]
 ```
-### QCheck: Property-based Testing
+### QCheck: Property-based Randomized Testing
 [QCheck documentation](https://c-cube.github.io/qcheck/0.6/QCheck.html)
 
 QCheck is a Property-Based Testing framework for OCaml. It is a framework that repeatedly generates random inputs, and uses them to confirm that properties hold. For example, it randomly generaly lists to confirm the `prop-reverse` property of the `rev` function hold. 
