@@ -170,8 +170,7 @@ Here a some examples of the arbitraries QCehck offers:
 ```
 small_int:  int arbitrary
 list: 	    'a arbitrary -> 'a list arbitrary
-triple:     'a arbitrary -> 'b arbitrary -> 'c arbitrary 
-            -> ('a * 'b * 'c) arbitrary
+triple:     'a arbitrary -> 'b arbitrary -> 'c arbitrary -> ('a * 'b * 'c) arbitrary
 ```
 The type `arbitrary` is defined as:
 ```
@@ -184,7 +183,7 @@ type 'a arbitrary = {
    stats : 'a stat list;  (** statistics to collect and print *)
 }
 ```
-We can build custom arbitraries by calling QCheck.make. 
+We can build custom an `arbitrary` by calling `QCheck.make`. 
 ```
 make :
   ?print:'a Print.t ->
@@ -198,8 +197,7 @@ For example: Let's build an arbitrary that generates random ints:
 ```
 # make (Gen.int);;
 - : int arbitrary =
-{gen = <fun>; print = None; small = None; shrink = None;    
-    collect = None;stats = []}
+{gen = <fun>; print = None; small = None; shrink = None; collect = None;stats = []}
 ```
 ### Random Generator
 `'a QCheck.Gen.t` is a function that takes in a Pseudorandom number generator, uses it to produce a random value of type `‘a`. 
@@ -310,6 +308,8 @@ QCheck’s Shrink contains a number of builtin shrinkers:
 * Shrink.list for reducing lists 
 * Shrink.pair for reducing pairs 
 * Shrink.triple for reducing triples 
+
+For implementing a custom shrink, look at the examples [even_number](examples/qcheck/even_number/) and [Balanced Brackets](examples/qcheck/balanced_brackets_buggy/). 
 
 ### Printers
 Printers print a values of type 'a.
