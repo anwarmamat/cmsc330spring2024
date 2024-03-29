@@ -68,7 +68,7 @@ open QCheck
 (* A QCheck test *)
 let test =
    Test.make      (* make a test *)
-   ~count:1000    (* number of random tests *)
+   ~count:1000    (* number of random tests. Change this to a larger number if you want to test more *)
    ~name:”reverse_test”  (* name of the test *)
    (list small_int) (* an arbitrary. Here is generates a list of random ints *)
   (fun x-> prop_reverse x) (* calls the property *)
@@ -90,15 +90,15 @@ Assume the `rev` function is implemented as:
 ```
 let rev l = l  (* returns the same list *)
 ```
-A simple unit test would catch the bug:
+Obviously, this implementation of `rev` is not correct. A simple unit test would catch the bug:
 ```
 let test_reverse = rev [1;2;3] = [3;2;1]
 ```
-However, the property does not catch the bug!
+However, the property `prop_reverse` does not catch the bug!
 ```
 let prop_reverse l = rev (rev l) = l
 ```
-because the property always holds. Therefore, we need a better property.
+because the property always holds if `rev` returns the original list without reversing it. Therefore, we need a better property.
 ```
 let prop_reverse2 l1 m l2 =
    rev (l1 @ [m] @ l2) = rev l2 @ [m] @ rev l1
@@ -110,6 +110,7 @@ rev [1;2]@[3]@[4;5] = rev [4;5] @ rev [3] @ rev [1;2]
 ```
 Now, this property holds only if the `red` is accurate. Lesson learned: Garbage in Garbage out. If the property is wrong, PBT will not detect the bug. 
 
+[Source code of the `rev` and its property-based tests](examples/qcheck/rev/rev.ml)
 
 
 ### Another example: Delete an item from the list
@@ -137,7 +138,7 @@ QCheck_runner.run_tests [test];;
 ```
 It immediately finds a counterexample:
 ```
---- Failure ----------------------------------------------
+--- Failure ----------------------------------------------
 Test reverse_test failed (11 shrink steps):
 (0, [0; 0])
 ==========================================================
