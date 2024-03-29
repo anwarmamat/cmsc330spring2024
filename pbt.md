@@ -162,19 +162,18 @@ let rec is_sorted lst =
 ```
 
 ### Arbitrary
-An 'a arbitrary represents an "arbitrary" value of type `'a`. It is used to describe how to 
+An `'a arbitrary` represents an "arbitrary" value of type `'a`. It is used to describe how to 
 * generate random values
 * shrink them (make counter-examples as small as possible)
 * print them. 
 Here a some examples of the arbitraries QCehck offers:
 ```
-small_int: 	int arbitrary
-list: 		'a arbitrary -> 'a list arbitrary
-triple: 		'a arbitrary -> 
-			  'b arbitrary -> 
-			  'c arbitrary -> ('a * 'b * 'c) arbitrary
+small_int:  int arbitrary
+list: 	    'a arbitrary -> 'a list arbitrary
+triple:     'a arbitrary -> 'b arbitrary -> 'c arbitrary 
+            -> ('a * 'b * 'c) arbitrary
 ```
-The type arbitrary is defined as:
+The type `arbitrary` is defined as:
 ```
 type 'a arbitrary = {
    gen: 'a Gen.t;
