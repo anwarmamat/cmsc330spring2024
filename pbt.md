@@ -151,7 +151,7 @@ The counterexample shows that when are duplicates in the list, The `delete` only
 ```
 delete 2 [2;2;3]  returns [2;3]
 ```
-### Example: 
+### Example: `is_sorted`
 Write a property `is_sorted` to test whether a list is sorted in non-decreasing order
 ```
 let rec is_sorted lst = 
@@ -161,7 +161,7 @@ let rec is_sorted lst =
  | h1::(h2::t as t2) -> h1 <= h2 && is_sorted t2
 ```
 
-###Arbitrary
+### Arbitrary
 An 'a arbitrary represents an "arbitrary" value of type `'a`. It is used to describe how to 
 * generate random values
 * shrink them (make counter-examples as small as possible)
