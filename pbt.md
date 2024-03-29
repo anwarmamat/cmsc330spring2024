@@ -117,8 +117,8 @@ Now, this property holds only if the `red` is accurate. Lesson learned: Garbage 
 ```
 let rec delete x l = match l with 
    [] -> []
- | (y::ys) -> if x = y then ys 
-              else y::(delete x ys)
+   | (y::ys) -> if x = y then ys 
+                else y::(delete x ys)
 
 ```
 We want to test the property that if `x` is deleted from the list, it shoud not be a member of this list. 
@@ -127,10 +127,12 @@ let prop_delete x l = not (List.mem x (delete x l))
 ```
 Test:
 ```
-let test = Test.make ~count:1000 
-~name:”delete_test" 
-(pair small_int (list small_int)) 
-(fun(x,l)-> prop_delete  x l)
+let test = 
+  Test.make 
+    ~count:1000 
+    ~name:”delete_test" 
+    (pair small_int (list small_int)) 
+    (fun(x,l)-> prop_delete  x l)
 ```
 Run the test:
 ```
