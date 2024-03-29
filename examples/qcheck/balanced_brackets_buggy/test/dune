@@ -1,0 +1,3 @@
+(tests
+    (names pbt)
+    (libraries stdio qcheck str balanced_bracket ounit2))

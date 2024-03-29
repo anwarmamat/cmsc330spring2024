@@ -1,0 +1,3 @@
+(tests
+  (names secret)
+  (libraries strset oUnit qcheck))

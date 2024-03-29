@@ -13,6 +13,7 @@
 * [Closures](closures.md)
 * [Imperative OCaml](imperative.md)
 * [Operational Semantics](semantics.md)
+* [QCheck: Property-Based Random Testing](pbt.md)
 ## Examples 
 * [Dune examples](dune)
 * [Map & Fold Examples](map_fold_tail.md#examples)
@@ -27,3 +28,4 @@
     * [Parser example from the lecture slides (with visualiztion)](examples/parser_class_example)
 * [Substitution based evaluator (interpreter)](examples/eval_subst.ml)
 * [Environment based evaluator (interpreter)](examples/interp.ml)
+* [QCheck:Property-Based Random Testing](examples/qcheck/)

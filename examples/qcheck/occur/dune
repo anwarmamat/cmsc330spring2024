@@ -1,0 +1,3 @@
+(tests
+  (names occur)
+  (libraries ounit2 qcheck))
