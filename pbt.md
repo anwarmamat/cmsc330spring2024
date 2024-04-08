@@ -5,7 +5,7 @@ Writing good unit tests are difficult. Let's test `rev` (list reverse) with a un
 let rec rev l = 
   match l with 
    [] -> []
-   | h::t -> rev t @ h
+   | h::t -> rev t @ [h]
 
 let test_reverse = reverse [1;2;3] = [3;2;1]
 ```
