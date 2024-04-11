@@ -671,6 +671,18 @@ let rec append a b=
 	;;
 ```
 ```ocaml
+(* merge two sorted lists into one sorted list *)
+let rec merge l1 l2 = 
+  match l1,l2 with 
+   [],l->l
+   |l,[]->l
+   |(h1::t1, h2::t2)->if h1 < h2 then h1::merge t1 l2 else h2::merge l1 t2 
+
+merge [1;3;7;9] [2;3;4;5;6]
+- : int list = [1; 2; 3; 3; 4; 5; 6; 7; 9]
+
+```
+```ocaml
 (* insert x into a sorted list l in sorted order *)
 let rec insert x l=
 	match l with 
