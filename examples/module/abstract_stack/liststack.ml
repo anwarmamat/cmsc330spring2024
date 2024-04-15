@@ -1,8 +1,7 @@
 
-(* Stack Implemented as List *)
-
-(*  
-   This implementation of Stack uses OCaml's built-in list to represent a stack.
+(** 
+    Stack Implemented as List. This implementation of Stack 
+    uses OCaml's built-in list to represent a stack.
  *)
 open Stack
    
