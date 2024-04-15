@@ -114,5 +114,6 @@ _build/default/bfs.exe
 ```
 
 Full code is here [https://github.com/anwarmamat/anwarmamat.github.io/tree/master/ocaml/ocamlgraph](https://github.com/anwarmamat/anwarmamat.github.io/tree/master/ocaml/ocamlgraph)
-OCamlgraph is a powerful graph library. For more details, please read here: http://ocamlgraph.lri.fr/index.en.html
+OCamlgraph is a powerful graph library. For more details, please read here: https://github.com/backtracking/ocamlgraph
+
 
