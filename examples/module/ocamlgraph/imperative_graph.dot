@@ -1,0 +1,13 @@
+digraph G {
+  ordering=out;
+  rankdir=TB;
+  orientation=landscape;
+  1000 [label="A", fontsize=24, shape=box, ];
+  1001 [label="B", fontsize=24, shape=box, ];
+  
+  
+  1000 -> 1001 [color="#001267", label="[1,2,3]", ];
+  1001 -> 1000 [color="#001267", label="[4,5]", ];
+  1001 -> 1000 [color="#001267", label="[10,20,30]", ];
+  
+  }

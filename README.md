@@ -14,6 +14,7 @@
 * [Imperative OCaml](imperative.md)
 * [Operational Semantics](semantics.md)
 * [QCheck: Property-Based Random Testing](pbt.md)
+* [Modules](modules.md)
 ## Examples 
 * [Dune examples](dune)
 * [Map & Fold Examples](map_fold_tail.md#examples)
@@ -29,3 +30,4 @@
 * [Substitution based evaluator (interpreter)](examples/eval_subst.ml)
 * [Environment based evaluator (interpreter)](examples/interp.ml)
 * [QCheck:Property-Based Random Testing](examples/qcheck/)
+* [Module examples](examples/module/)
