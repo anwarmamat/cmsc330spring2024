@@ -15,8 +15,8 @@ let t4 = ListStack.push 30 t3
 let v1:int = ListStack.peek t4
 
 let _ = Printf.printf "%d\n" v1
-let t4 = ListStack.pop t4  
-let v2 = ListStack.peek t4
+let t5 = ListStack.pop t4  
+let v2 = ListStack.peek t5
 let () = Printf.printf "%d\n" v2;;
 
            
@@ -31,7 +31,7 @@ let v1 = VarStack.peek t4
 
 let _ = Printf.printf "%d\n" v1
 
-let t4 = VarStack.pop t4     
-let v2 = VarStack.peek t4
+let t5 = VarStack.pop t4     
+let v2 = VarStack.peek t5
 let _= Printf.printf "%d\n" v2
 
