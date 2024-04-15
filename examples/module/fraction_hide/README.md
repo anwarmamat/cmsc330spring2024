@@ -1,6 +1,6 @@
 ### Fraction module
 This module can represent a fraction, but hides how the fraction is implemented. Users have to create the fraction using `make`, but cannot create fractions using `Frac` directly. For example
-```
+```ocaml
 let f = Frac (100,200)
 ```
 will not work. 
@@ -11,7 +11,6 @@ creates a fraction and reduces it to `1/2`.
 
 * Fraction Interface
 ```ocaml
-(* Fraction module *)
 module type FractionInt = sig
   type fraction (* hide the type *)
 
