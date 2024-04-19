@@ -15,6 +15,7 @@
 * [Operational Semantics](semantics.md)
 * [QCheck: Property-Based Random Testing](pbt.md)
 * [Modules](modules.md)
+* [Lambda Calculus](lambda.md)
 ## Examples 
 * [Dune examples](dune)
 * [Map & Fold Examples](map_fold_tail.md#examples)

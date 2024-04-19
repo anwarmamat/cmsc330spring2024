@@ -277,7 +277,7 @@ fact 3 = 3 * fact 2
        = 6	 
 ```
 As shown below, each recursive call to the `fact` function will create a new stack frame in the memory. 
-![image](factorial.png) 
+![image](images/factorial.png) 
 As such, if the recusrion is deep, it can cause `Stack overflow` error. For example:
 ```ocaml
 let rec sum n = 
@@ -289,7 +289,7 @@ Stack overflow during evaluation (looping recursion?).
 ```
 
 Now, let us look at another implementation of the factorial function
-![image](factorial_tail.png) 
+![image](images/factorial_tail.png) 
 ```ocaml
 let fact n =
   let rec aux x a =
@@ -300,7 +300,7 @@ let fact n =
   ```
   Here is the execution of `fact 3`
 
-  ![image](factorial_tail_stack.png) 
+  ![image](images/factorial_tail_stack.png) 
 
 In the first implementation of the factoral, it makes recursive calls `fact (n-1)`, and then it takes the return value of the recursive call and calculate the result `n * fact (n-1)`. In this manner, you don't get the result of your calculation until you have returned from every recursive call.
 
