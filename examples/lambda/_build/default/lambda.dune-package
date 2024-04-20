@@ -1,0 +1,4 @@
+(lang dune 3.14)
+(name lambda)
+(sections (lib .) (bin ../../bin) (doc ../../doc/lambda))
+(files (lib (META dune-package opam)) (bin (lambda)) (doc (README.md)))

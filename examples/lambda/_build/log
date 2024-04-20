@@ -1,0 +1,23 @@
+# dune exec lambda
+# OCAMLPARAM: unset
+# Shared cache: disabled
+# Shared cache location: /Users/anwar/.cache/dune/db
+# Workspace root: /Users/anwar/git/umd/cmsc330spring2024-notes/examples/lambda
+# Auto-detected concurrency: 12
+# Dune context:
+#  { name = "default"
+#  ; kind = "default"
+#  ; profile = Dev
+#  ; merlin = true
+#  ; fdo_target_exe = None
+#  ; build_dir = In_build_dir "default"
+#  ; installed_env =
+#      map
+#        { "INSIDE_DUNE" :
+#            "/Users/anwar/git/umd/cmsc330spring2024-notes/examples/lambda/_build/default"
+#        ; "OCAML_COLOR" : "always"
+#        ; "OPAMCOLOR" : "always"
+#        }
+#  ; instrument_with = []
+#  }
+$ /Users/anwar/.opam/default/bin/ocamlc.opt -config > /var/folders/zg/bptryffs6wj168mb38hd_hh40000gp/T/dune_24e6d2_output
