@@ -116,6 +116,8 @@ Use recursion on structure of terms
 
 ### Implement Lambda Calculus in OCaml
 
+[Lambda Calculus OCaml Cource Code](examples/lambda)
+
 ```
 type var = string
 
@@ -132,7 +134,7 @@ Example:
 | λx.λy.x y | Lam (“x”,(Lam(“y”,App (Var “x”, Var “y”)))) |
 |(λx.λy.x y) (λx.x x) |App (Lam(“x”,Lam(“y”,App(Var“x”,Var“y”))), Lam (“x”, App (Var “x”, Var “x”)))
 
-[Lambda Calculus OCaml Cource Code](examples/lambda)
+
 
   ### Church Encodings
   coming soon ...
