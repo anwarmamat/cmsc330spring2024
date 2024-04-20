@@ -32,3 +32,4 @@
 * [Environment based evaluator (interpreter)](examples/interp.ml)
 * [QCheck:Property-Based Random Testing](examples/qcheck/)
 * [Module examples](examples/module/)
+* [Lambda Calculus](examples/lambda/)
