@@ -1,4 +1,4 @@
-# Rust
+# 99 Problemsin Rust
 1. Find the last item of a vector. 
 ```rust
  let a = vec![1,3,5];
@@ -188,7 +188,7 @@ fn main() {
   println!("{:?}", decode(a)); //[1, 1, 1, 2, 3, 3, 4]
 }
 ```
-13. Run-length encoding of a list (direct solution). Implement the so-called run-length encoding data compression method directly. I.e. don't explicitly create the sublists containing the duplicates, as in problem P09, but only count them. As in problem P11, simplify the result list by replacing the singleton lists (1 X) by X.
+13. Run-length encoding of a vector. Implement the so-called run-length encoding data compression method directly. I.e. don't explicitly create the sublists containing the duplicates, as in problem P09, but only count them. As in problem P11, simplify the result list by replacing the singleton lists (1 X) by X.
 ```rust
 use Elem::{Unique, Several};
 
@@ -213,8 +213,8 @@ fn encode_bis<T: Clone + Eq>(a: Vec<T>) -> Vec<Elem<T>> {
 }
 
 fn main() {
-  let a = vec![1is, 1, 2, 3, 3, 4];
-  println!("{:?}" , encode_bis(a));
+  let a = vec![1, 1, 1, 2, 3, 3, 4];
+  println!("{:?}" , encode_bis(a)); //[Several(3, 1), Unique(2), Several(2, 3), Unique(4)]
 }
 ```
 14. Duplicate the elements of a list.
@@ -224,8 +224,8 @@ fn dupli<T: Clone>(a: Vec<T>) -> Vec<T> {
 }
 
 fn main() {
-  let a = vec![1is, 1, 2, 3, 3, 4];
-  println!("{:?}" , dupli(a));
+  let a = vec![1, 2, 3, 4];
+  println!("{:?}" , dupli(a)); //[1, 1, 2, 2, 3, 3, 4, 4]
 }
 ```
 15. Replicate the elements of a list a given number of times.
@@ -235,8 +235,8 @@ fn repli<T: Clone>(n: usize, a: Vec<T>) -> Vec<T> {
 }
 
 fn main() {
-  let a = vec![1is, 1, 2, 3, 3, 4];
-  println!("{:?}" , repli(3, a));
+  let a = let a = vec![1, 2, 4];
+  println!("{:?}" , repli(3, a));  //[1, 1, 1, 2, 2, 2, 4, 4, 4]
 }
 ```
 16. Drop every N'th element from a list.
@@ -248,8 +248,8 @@ fn drop<T>(a: Vec<T>, n: usize) -> Vec<T> {
 }
 
 fn main() {
-  let a = vec![1is, 1, 2, 3, 3, 4];
-  println!("{:?}" , drop(a, 3));
+  let a = vec!["a", "b", "c", "d","e","f","g"];
+  println!("{:?}" , drop(a, 3)); //["a", "b", "d", "e", "g"]
 }
 ```
 17. Split a list into two parts; the length of the first part is given.
@@ -259,47 +259,51 @@ fn split<'a, T>(a: &'a [T], n: usize) -> (&'a [T], &'a [T]) {
 }
 
 fn main() {
-  let a = &[1is, 1, 2, 3, 3, 4];
-  println!("{:?}" , split(a, 13));
+  let a: &[i32; 7] = &[1, 2, 3, 4, 5, 6, 7];
+  println!("{:?}" , split(a, 13)); //([1, 2, 3], [4, 5, 6, 7])
 }
 ```
-18. Extract a slice from a list. Given two indices, I and K, the slice is the list containing the elements between the I'th and K'th element of the original list (both limits included). Start counting the elements with 1.
+18. Extract a slice from a list. Given two indices, I and K, the slice is the list containing the elements between the I'th and K'th element of the original list (both limits included). 
 ```rust
 use std::cmp::min;
 
-fn slice<'a, T>(a: &'a [T], i: usize, j: usize) -> &'a [T] {
-  a.slice(min(i, a.len()), min(j, a.len()))
+fn slice<T>(a: &[T], i: usize, j: usize) -> &[T] {
+    &a[min(i, a.len())..min(j + 1, a.len())]
 }
 
 fn main() {
-  let a = &[1is, 1, 2, 3, 3, 4];
-  println!("{:?}" , slice(a, 2, 5));
+    let a = &[1, 2, 3, 4, 5, 6, 7];
+    println!("{:?}", slice(a, 2, 5)); //[3, 4, 5, 6]
 }
+
 ```
 19. Rotate a list N places to the left.
 ```rust
-fn rotate<T: Clone>(a: Vec<T>, n: usize) -> Vec<T> {
-  let t = n % a.len();
-  let mut r = vec![];
-  r.push_all(a.slice_from(t));
-  r.push_all(a.slice_to(t));
-  r
+fn rotate<T: Clone + std::fmt::Debug>(a: Vec<T>, n: usize) -> Vec<T> {
+    let t = n % a.len();
+    let mut r = vec![];
+
+    r.append(&mut a[t..].to_vec());
+    r.append(&mut a[0..t].to_vec());
+    println!("{:?}", a);
+    r
 }
 
 fn main() {
-  let a = vec![1is, 1, 2, 3, 3, 4];
-  println!("{:?}" , rotate(a, 2));
+    let a = vec![1, 2, 3, 4];
+    println!("{:?}", rotate(a, 3)); //[4, 1, 2, 3]
 }
+
 ```
 20. Remove the K'th element from a list.
-```
+```rust
 fn remove_at<T>(a: &mut Vec<T>, i: usize) -> &mut Vec<T> {
-  a.remove(i);
-  a
+    a.remove(i);
+    a
 }
 
 fn main() {
-  let mut a = vec![1is, 1, 2, 3, 3, 4];
-  println!("{:?}" , remove_at(&mut a, 2));
+    let mut a = vec!["a", "b", "c", "d"]; 
+    println!("{:?}", remove_at(&mut a, 2)); //["a", "b", "d"]
 }
 ```
