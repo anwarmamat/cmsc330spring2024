@@ -252,3 +252,7 @@ or false false =
 λx.λy.y = false
 ```
 Given these operations, we can build up a logical inference system
+#### Pairs
+#### Natural Numbers
+#### Arithmetic Using Church Numerals
+#### Looping+Recursion
