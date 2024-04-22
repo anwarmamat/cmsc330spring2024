@@ -137,4 +137,118 @@ Example:
 
 
   ### Church Encodings
-  coming soon ...
+  Church encoding is a means of representing data and operators in the lambda calculus. Chruch encodign maps constructs such as 
+* Let bindings
+* Booleans
+* Pairs
+* Natural numbers & arithmetic
+* Looping
+
+to higher order functions. 
+
+#### Let bindings
+
+Local variable declarations are like defining a function and applying it immediately (once):
+```
+let x = e1 in e2 = (λx.e2) e1
+```
+Example:
+```
+let x = (λy.y) in x x = (λx.x x) (λy.y) 
+```
+where `(λx.x x) (λy.y)` can be reduced to
+```
+(λx.x x) (λy.y) → (λx.x x) (λy.y) → (λy.y) (λy.y) → (λy.y)
+```
+#### Booleans
+
+
+```
+true = λx.λy.x
+false = λx.λy.y
+if a then b else c = a b c
+```
+Examples
+```
+if true then b else c = (λx.λy.x) b c → (λy.b) c → b
+if false then b else c = (λx.λy.y) b c → (λy.y) c → c
+```
+Other Boolean operations
+* not
+```
+not = λx.x false true
+```
+Example:
+```
+true = λx.λy.x
+false = λx.λy.y
+not = λx.x false true = (λx.x (λx.λy.y) (λx.λy.x))
+
+not true =
+(λx.x (λx.λy.y) (λx.λy.x)) (λx.λy.x)
+(λx.x(λx.λy.y)(λx.λy.x))(λx.λy.x)
+(λx.λy.x)(λx.λy.y)(λx.λy.x)
+(λy.λx.λy.y)(λx.λy.x)
+λx.λy.y = false
+
+not false =
+(λx.x(λx.λy.y)(λx.λy.x))(λx.λy.y)
+(λx.λy.y)(λx.λy.y)(λx.λy.x)
+(λy.y)(λx.λy.x)
+λx.λy.x = true
+```
+* and 
+```
+and = λx.λy.x y false
+and x y = if x then y else false
+```
+Examples:
+```
+true = λx.λy.x
+false = λx.λy.y
+and = λx.λy.x y false
+
+and true true = 
+(λx.λy.x y (λx.λy.y)) (λx.λy.x) (λx.λy.x)
+(λx.λy.xy(λx.λy.y))(λx.λy.x)(λx.λy.x)
+(λy.(λx.λy.x)y(λx.λy.y))(λx.λy.x)
+(λx.λy.x)(λx.λy.x)(λx.λy.y)
+(λy.λx.λy.x)(λx.λy.y)
+λx.λy.x = true
+
+
+and true false = 
+(λx.λy.xy(λx.λy.y))(λx.λy.x)(λx.λy.y)
+(λy.(λx.λy.x)y(λx.λy.y))(λx.λy.y)
+(λx.λy.x)(λx.λy.y)(λx.λy.y)
+(λy.λx.λy.y)(λx.λy.y)
+λx.λy.y = false
+
+```
+* or
+```
+or = λx.λy.x true y
+```
+Examples:
+```
+true = λx.λy.x
+false = λx.λy.y
+or = λx.λy.x true y = λx.λy.x (λx.λy.x) y
+
+or true false = 
+(λx.λy.x (λx.λy.x) y) (λx.λy.x) (λx.λy.y)
+(λx.λy.x(λx.λy.x)y)(λx.λy.x)(λx.λy.y)
+(λy.(λx.λy.x)(λx.λy.x)y)(λx.λy.y)
+(λx.λy.x)(λx.λy.x)(λx.λy.y)
+(λy.λx.λy.x)(λx.λy.y)
+λx.λy.x = true
+
+or false false = 
+(λx.λy.x (λx.λy.x) y) (λx.λy.y) (λx.λy.y)
+(λx.λy.x(λx.λy.x)y)(λx.λy.y)(λx.λy.y)
+(λy.(λx.λy.y)(λx.λy.x)y)(λx.λy.y)
+(λx.λy.y)(λx.λy.x)(λx.λy.y)
+(λy.y)(λx.λy.y)
+λx.λy.y = false
+```
+Given these operations, we can build up a logical inference system
