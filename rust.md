@@ -1,4 +1,11 @@
 # Type-Safe, Low-level Programming with Rust
+
+Rust Book:
+* [The Rust Programming Language](https://doc.rust-lang.org/book).
+* [Here is a simpler version](https://www.cs.brandeis.edu/~cs146a/rust/doc-02-21-2015/book/README.html)
+* [99 Problemsin Rust](rust99.md)
+
+
 ### Type Safety in Programming Languages
 In a type-safe language, the type system enforces well defined behavior. Formally, a language is type-safe iff
 ```
