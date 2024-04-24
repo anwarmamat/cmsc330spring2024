@@ -16,7 +16,7 @@
 * [QCheck: Property-Based Random Testing](pbt.md)
 * [Modules](modules.md)
 * [Lambda Calculus](lambda.md)
-* [99 Problems in Rust](rust99.md)
+* [Rust](rust.md)
 ## Examples 
 * [Dune examples](dune)
 * [Map & Fold Examples](map_fold_tail.md#examples)
@@ -34,3 +34,4 @@
 * [QCheck:Property-Based Random Testing](examples/qcheck/)
 * [Module examples](examples/module/)
 * [Lambda Calculus](examples/lambda/)
+* [99 Problems in Rust](rust99.md)
