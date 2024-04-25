@@ -21,6 +21,7 @@ For all x, A(x) = v  implies G(x) = t and ⊢ v : t
 ```
 ### C/C++: Not Type-Safe
 * Spatially Unsafe
+  
 In C/C++, type safety is violated by buffer overflows
 ```c
     int main() {
@@ -30,7 +31,8 @@ In C/C++, type safety is violated by buffer overflows
 	  return *p; // crash 
 	}
 ```
-* Temporally Unsafe 
+* Temporally Unsafe
+  
 In C/C++, type safety is violated by dangling pointers (uses of pointers to freed memory)
 ```c
 { 
