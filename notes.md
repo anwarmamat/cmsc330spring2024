@@ -564,7 +564,6 @@ let rec last l = match l with
 
 ```ocaml
 (* return a list containing all the elements in the list l followed by all the elements in list m *)
-•	append l m
 let rec append l m = match l with
    [] -> m
  | (x::xs) -> x::(append xs m)
