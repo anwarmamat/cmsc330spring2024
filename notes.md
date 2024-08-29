@@ -275,24 +275,49 @@ The functions `swap` and `eq` are polymorphic function. The types `'a` and `'b` 
 (* Swapping two values *)
 let swap (x,y) = (y,x);;
 swap : 'a * 'b -> 'b * 'a
-
+```
+```ocaml
 (* Comparing other types *)
 let eq (x,y) = x = y;; 
 eq : 'a * 'a -> bool
-
+```
+```ocaml
 (* Adding two integers *)
 let add x y = x + y;;
 add : int -> int -> int
-
+```
+```ocaml
 let fn x = (int_of_float x) * 3;;
 fn : float -> int = <fun>
-
+```
+```ocaml
 (* factorial function *)
+let rec fact n =
+  if n = 0 then
+     1
+  else
+     n * fact (n-1);;
 fact;;
 fact: int -> int
 ```
+```ocaml
+(* Sum of the first n natural numbers *)
 
+let rec sum n = 
+  if n == 0 then 0 else n + sum (n-1)
 
+sum: int -> int
+```
+```ocaml
+(* mutually recusrive functions *)
+let rec odd n = 
+  if n == 0 then false 
+  else even(n-1)
+and
+  even n = 
+    if n == 0 then true
+    else odd(n-1)
+```
 
 ### Type annotations
 OCaml compiler infers the types. But type inference is tricky. It gives vague error messages. We can annotate types manually. 
@@ -439,38 +464,39 @@ tl [1]     (* evaluates to [ ]   *)
 ### Pattern Matching – An Abbreviation
 If f there’s only one acceptable input, the pattern matching `let f x = match x with p -> e` can be abbreviated to `let f p = e`.  For example: 
 ```ocaml
+(* get the head (first item) of the list *)
 let hd l = 
   match l with
   |h::_-> h
-```
-can be wrriten as:
-```ocaml
+
+(* can be wrriten as:*)
+
 let hd (h::_) = h
 ```
 ```ocaml
+(* can be wrriten as:*)
 let hd l = 
   match l with
   |_::t-> t
-```
-can be wrriten as:
-```ocaml
+
+(* can be wrriten as: *)
+
 let tl (_::t) = t
 ```
+
 ```ocaml
 let f lst = 
 match lst with 
 |(x::y::_) -> x + y
-```
-can be wrriten as:
-```ocaml
+
+(* can be wrriten as: *)
 let f (x::y::_) = x + y
 ```
 ```ocaml
 let f lst = 
   match lst with 
   |(x::y::[]) -> x + y
-```
-can be wrriten as:
+(* can be wrriten as: *)
 ```ocaml
 let g [x; y] = x + y
 ```
@@ -564,7 +590,6 @@ let rec last l = match l with
 
 ```ocaml
 (* return a list containing all the elements in the list l followed by all the elements in list m *)
-•	append l m
 let rec append l m = match l with
    [] -> m
  | (x::xs) -> x::(append xs m)
