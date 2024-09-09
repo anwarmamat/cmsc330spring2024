@@ -385,9 +385,9 @@ let func x =
   let rec helper arg acc =
     if (base case) then acc
     else
-      let arg’ = (argument to recursive call)
-      let acc’ = (updated accumulator)
-      helper arg’ acc’ in (* end of helper fun *)
+      let arg' = (argument to recursive call)
+      let acc' = (updated accumulator)
+      helper arg' acc' in (* end of helper fun *)
   helper x (initial val of accumulator)
 ```
 Tail Recursion Pattern with fact
@@ -396,9 +396,9 @@ let fact x =
   let rec helper arg acc =
     if arg = 0 then acc
     else
-      let arg’ = arg – 1 in
-      let acc’ = acc * arg in
-      helper arg’ acc’ in (* end of helper fun *)
+      let arg' = arg – 1 in
+      let acc' = acc * arg in
+      helper arg' acc' in (* end of helper fun *)
   helper x 1
 ```
 Tail Recursion Pattern with list reverse `rev`
@@ -407,8 +407,8 @@ let rev x =
   let rec rev_helper arg acc =
     match arg with [] -> acc
     | h::t -> 
-      let arg’ = t in
-      let acc’ = h::acc in
-      rev_helper arg’ acc’ in (* end of helper fun *)
+      let arg' = t in
+      let acc' = h::acc in
+      rev_helper arg' acc' in (* end of helper fun *)
   rev_helper x []
 ```
