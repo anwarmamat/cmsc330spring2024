@@ -101,10 +101,10 @@ e1;e2  : t if e1 : unit and e2 : t
 
 `e1; e2` evaluates `e1` and then `e2`, and returns `e2`
 ```ocaml
-	let print_both (s, t) = 
-      print_string s; 
-      print_string t;
-      "Printed s and t"
+let print_both (s, t) = 
+  print_string s; 
+  print_string t;
+  "Printed s and t"
 ```
 notice no `;` at end − it’s a separator, not a terminator. 
 `print_both (”Colorless green ", ”ideas sleep")` Prints `”Colorless green ideas sleep"`, and returns `"Printed s and t"`. 
@@ -114,19 +114,19 @@ notice no `;` at end − it’s a separator, not a terminator.
 If you’re not sure about the scoping rules, use begin...end, or parentheses, to group together statements with semicolons
 ```ocaml
 let x = ref 0
-let f () =
-  begin
-    print_string "hello";
-    x := !x + 1
-  end
+  let f () =
+    begin
+      print_string "hello";
+      x := !x + 1
+    end
 ```
 ```ocaml
 let x = ref 0
-let f () =
-  (
-    print_string "hello";
-    x := !x + 1
-  )
+  let f () =
+    (
+      print_string "hello";
+      x := !x + 1
+    )
 ```
 ### Examples – Semicolon
 ```ocaml
@@ -256,15 +256,34 @@ let x = ref 1 in x == x   (* true *)
 ```
 
 ### Mutable fields
-Fields of a record type can be declared as mutable:   
-Implementing Refs. Ref cells are essentially syntactic sugar:
+Fields of a record type can be declared as mutable.  For example, here is a record type for students whose field `grade` is mutable: 
 ```ocaml
-  type 'a ref = { mutable contents: 'a }
-  let ref x = { contents = x }
-  let (!) r = r.contents
-  let (:=) r newval = r.contents <- newval
+(* create a record type student with fields name, id, and grade *)
+type point={name:string; id:int; mutable grade:char}
+# type point = { name : string; id : int; mutable grade : char; }
+
+(* create a student record *)
+let s = {name="john"; id=1234; grade='B'};;
+# val s : point = {name = "john"; id = 1234; grade = 'B'}
+
+(* mutate the grade for the student s *)
+s.grade <- 'A';;
+# - : unit = ()
+
+s;;
+# - : point = {name = "john"; id = 1234; grade = 'A'}
 ```
-`ref` type is declared in Stdlib. `ref` functions are compiled to equivalents of above
+
+#### Implementing Refs
+Ref cells are essentially syntactic sugar for a record type with a mutable fiels called `contents`.
+```ocaml
+type 'a ref = { mutable contents: 'a }
+let ref x = { contents = x }
+let (!) r = r.contents
+let (:=) r newval = r.contents <- newval
+```
+`ref` type is declared in Stdlib. `ref` functions are compiled to equivalents of above.
+
 #### Arrays
 Arrays generalize ref cells from a single mutable value to a sequence of mutable values
 ```ocaml
