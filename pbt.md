@@ -70,7 +70,7 @@ open QCheck
 let test =
    Test.make      (* make a test *)
    ~count:1000    (* number of random tests. Change this to a larger number if you want to test more *)
-   ~name:”reverse_test”  (* name of the test *)
+   ~name:"reverse_test"  (* name of the test *)
    (list small_int) (* an arbitrary. Here is generates a list of random ints *)
   (fun x-> prop_reverse x) (* calls the property *)
 
@@ -131,7 +131,7 @@ Test:
 let test = 
   Test.make 
     ~count:1000 
-    ~name:”delete_test" 
+    ~name:"delete_test"
     (pair small_int (list small_int)) 
     (fun(x,l)-> prop_delete  x l)
 ```
