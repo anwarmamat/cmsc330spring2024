@@ -46,17 +46,4 @@ Let("x", Num 10, Let("y", Plus(Ident "x", Num 1),Plus(Ident "x", Ident "y")))
 let e2 =(Let("y", Plus(Ident "x", Num 1),Plus(Ident "x", Ident "y")));;
 # eval (Let("x", Num 10, e2));;
 - : num = 21
-
-
 *)
-   
-   
-   
-   
-
-
-
-
-
-
-			
