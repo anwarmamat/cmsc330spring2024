@@ -15,7 +15,7 @@ There are three main approaches to formal semantics:
     * Logical rules describe how to systematically build up these transformers from programs
 
 ### Operational Semantics
-We will show how an operational semantics may be defined for Micro-Ocaml and develop an interpreter for it, along the way by using rules to define a judgment.
+We will show how an operational semantics may be defined for Micro-Ocaml and develop an interpreter for it, along the way by using rules to define a judgement.
 ```
 e ⇒ v
 ```
@@ -24,7 +24,7 @@ Says “e evaluates to v”
 * v:  value that results from evaluating e
 
 ### Definitional Interpreter
-Rules for judgment e ⇒ v can be easily turned into idiomatic OCaml code for an interpreter
+Rules for judgement e ⇒ v can be easily turned into idiomatic OCaml code for an interpreter
 * The language’s expressions e and values v have corresponding OCaml datatype representations exp and value
 * The semantics is represented as a function 
 ```
