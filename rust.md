@@ -58,7 +58,7 @@ In OCaml, local variables live on the stack. Tuples, closures, and constructed t
 let x = (3, 4)  (* heap-allocated *)
 let f x y = x + y in f 3
                  (* result heap-allocated *)
-type ‘a t = None | Some of ‘a
+type ‘a t = None | Some of 'a
 None           (* not on the heap–just a primitive *)
 Some 37    (* heap-allocated *)
 ```
