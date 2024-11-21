@@ -5,8 +5,6 @@ enum List {
     Cons(u32, Box<List>),
 }
 
-
-
 // let list = Cons(1, Box::new(Nil));
 // let list = Cons(1, Box::new(Cons(2, Box::new(Cons(3, Box::new(Nil))))));
 
