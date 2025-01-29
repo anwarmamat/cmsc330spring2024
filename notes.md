@@ -19,6 +19,17 @@ Caml is a dialect of the ML programming language family, developed in France at 
 * Introduction to the Objective Caml Programming Language (http://courses.cms.caltech.edu/cs134/cs134b/book.pdf)
 * Real World OCaml 2nd Edition (https://dev.realworldocaml.org/)
 * OCaml from the Very Beginning (https://johnwhitington.net/ocamlfromtheverybeginning/mlbook.pdf)
+* Cornell cs3110 book is another course which uses OCaml; it is more focused on programming and less on PL theory than this class is.
+* `ocaml.org` is the home of OCaml for finding downloads, documentation, etc. The tutorials are also very good and there is a page of books.
+
+
+## Similar Courses
+* CS3110 (Cornell)
+* CSE341 (Washington)
+ * 601.426 (Johns Hopkins)
+* COS326 (Princeton)
+* CS152 (Harvard)
+* CS421 (UIUC)
 
 ## Installing OCaml
 Install the latest version of OCaml from https://ocaml.org/
