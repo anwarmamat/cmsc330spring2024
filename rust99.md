@@ -325,7 +325,37 @@ fn main() {
 ```
 22. Create a list containing all integers within a given range.
     If first argument is smaller than second, produce a list in decreasing order.
+```rust
+fn range1(lo: i32, hi: i32) -> Vec<i32> {
+    let mut v = Vec::new();
+    if lo < hi {
+        for i in lo..hi + 1 {
+            v.push(i);
+        }
+    } else {
+        for i in hi..lo + 1 {
+            v.push(i);
+        }
+        v.reverse();
+    }
+    v
+}
 
+use num_iter; //add 'num-iter = "0.1.45"' to your Cargo.toml:
+fn range(left: i32, right: i32) -> Vec<i32> {
+    if left < right {
+        num_iter::range(left, right + 1).collect()
+    } else {
+        num_iter::range(right, left + 1).rev().collect()
+    }
+}
+fn main() {
+    let v1 = range1(2, 10);
+    let v2 = range1(12, 5);
+    println!("{:?}", v1);
+    println!("{:?}", v2);
+}
+```
 
 23. Extract a given number of randomly selected elements from a list.
     The selected items shall be returned in a list.

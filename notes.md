@@ -3,15 +3,13 @@
 
 Caml is a dialect of the ML programming language family, developed in France at INRIA. OCaml is the main implementation of the programming language Caml. The features of ML include:
 * First-class functions
-  * Functions can be data, too: parameters and return values
-* Favor immutability (assign onceâ)
+  * Functions can be data. We can send functions as  parameters to other functions and return functions as return values.
+* Favor immutability (assign once)
 * Data types and pattern matching
   * Convenient for certain kinds of data structures
 * Type inference
-  * No need to write types in the source language
-    * But the language is statically typed
-  * Supports parametric polymorphism
-    * Generics in Java, templates in C++
+  * OCaml is statically typed, but there is no need to write types in the source language
+  * Supports parametric polymorphism, similar to Generics in Java, templates in C++
 * Exceptions
 * Garbage collection
 
@@ -22,15 +20,58 @@ Caml is a dialect of the ML programming language family, developed in France at 
 * Real World OCaml 2nd Edition (https://dev.realworldocaml.org/)
 * OCaml from the Very Beginning (https://johnwhitington.net/ocamlfromtheverybeginning/mlbook.pdf)
 
+## Installing OCaml
+Install the latest version of OCaml from https://ocaml.org/
+
+## OPAM: OCaml Package Manager
+opam is the package manager for OCaml. It manages libraries and different compiler installations. For the class projects, you should install the following packages with `opam`. 
+ * ounit, a testing framework similar to minitest
+ * utop, a top-level interface
+ * dune, a build system for larger projects
+
+
 ## Working with OCaml
 
-* OCaml programs can be compiled using `ocamlc`
-  * Produces `.cmo` (compiled object) and `.cmi` (compiled interface) files
-   * Use -o to set output file name
-   * Use -c to compile only to `.cmo/.cmi` and not to link
-* Can also compile with ocamlopt
-  * Produces `.cmx` files, which contain native code
-  * Faster, but not platform-independent (or as easily debugged)
+* OCaml programs can be compiled using `ocamlc`. It produces `.cmo` (compiled object) and `.cmi` (compiled interface) files. You can use `-o` to set output file name, and use `-c` to compile only to `.cmo/.cmi` and not to link. You can also compile with `ocamlopt`. It produces `.cmx` files, which contain native code: faster, but not platform-independent (or as easily debugged)
+
+## Project Builds with dune
+
+You use dune to compile projects. It automatically finds dependencies, invokes compiler and linker. Let us create a new project with `dune`:
+```
+dune init project HelloWorld
+```
+It creates a `HelloWorld` project with the following files:
+```
+HelloWorld
+├── HelloWorld.opam
+├── _build
+│   └── log
+├── bin
+│   ├── dune
+│   └── main.ml
+├── dune-project
+├── lib
+│   └── dune
+└── test
+    ├── dune
+    └── test_HelloWorld.ml
+```
+Build the project:
+```
+dune build
+```
+Run it:
+```
+dune exec bin/main.exe
+```
+or
+```
+_build/default/main.exe
+```
+Run the tests
+```
+dune runtest
+```
 
 ## OCaml Basics
 
@@ -51,8 +92,7 @@ open Printf
 let message = "Hello world";;
 (printf "%s\n" message)
 ```
-The first line includes the built-in library for printing, which provides functions similar to fprintf and printf from stdlib in C. The next two lines define a constant named message, and then call the printf function with a format string (where %s means "format as string"), and the constant message we defined on the line before.
-
+The first line includes the built-in library for printing, which provides functions similar to `fprintf` and `printf` from `stdlib` in `C`. The next two lines define a constant named message, and then call the `printf` function with a format string (where `%s` means "format as string"), and the constant message we defined on the line before.
 
 To compile and run
 ```ocaml
@@ -63,17 +103,14 @@ Hello world!
 
 We can also compile multiple files to generate a single executable. 
 
-
-main.ml
 ```ocaml
+(* main.ml *)
 let main () =
-print_int (Util.add 10 20); print_string "\n"
+  print_int (Util.add 10 20); print_string "\n"
 let () = main ()
-```
- 
-util.ml
-```ocaml
-let add x y = x+y
+
+(* util.ml *)
+let add x y = x + y
 ```
 Compile and run:
 ```ocaml
@@ -92,20 +129,17 @@ It generates an executable a.out. We can execute it by
 ```
 
 ### OCaml toplevel, a REPL for OCaml
-We will begin exploration of OCaml in the interactive top level. A top level is also called a read-eval-print loop and it works like a terminal shell. To run the ocaml topleve, simply run `ocaml`
+We will begin exploration of OCaml in the interactive top level. A top level is also called a read-eval-print loop (REPL) and it works like a terminal shell. To run the ocaml topleve, simply run `ocaml`
 ```ocaml
  % ocaml
- OCaml version 4.14.1
+ OCaml version 5.2.0
  # print_string "Hello world!\n";;
     Hello world!
  - : unit = ()
 ```
+There is an alternative toplevel called `utop`. It is more user friendly, and we will be using `utop` in the class. You can install `utop` by runnung `opam install utop`. Follow the instructions in the project 0 for installing opam and ocaml. 
 
-There is an alternative toplevel called `utop`. It is more user friendly, and we will be using `utop` in the class. You can install `utop` by runnung `opam install utop`.
-
-Follow the instructions in the project 0 for installing opam and ocaml. 
-
-To load a file into top level:
+To load a `.ml` file into top level:
 ```ocaml
 #use "filename.ml"
 ```
@@ -155,7 +189,7 @@ print_int "This function expected an int";;
 We use metavariable `e` to designate an arbitrary expression.
 
 ## Values
-A value is an expression that is final. For example, `34` and `true` are values because they are and we cannot evaluate them any further. On the contrary, `34+17` is an expression, but not a value because we can it is not final. Evaluating an expression means running it until it’s a value. For example `34+17` evaluates to 51, which is a value. We use metavariable `v` to designate an arbitrary value
+A value is an expression that is final. For example, `34` and `true` are values because we cannot evaluate them any further. On the contrary, `34+17` is an expression, but not a value because we can further evaluate it. Evaluating an expression means running it until it is a value. For example `34+17` evaluates to 51, which is a value. We use metavariable `v` to designate an arbitrary value
 
 ## Types
 Types classify expressions. It is the set of values an expression could evaluate to. Examples include `int`, `bool`, `string`, and more. We use metavariable `t` to designate an arbitrary type. Expression `e` has type `t` if `e` will (always) evaluate to a value of type `t`. For example `0`, `1`, and `-1` are values of type `int` while `true` has type `bool`. `34+17` is an expression of type `int`, since it evaluates to `51`, which has type `int`. We usually write `e : t` to say `e` has type `t`.  The process of determining `e` has type `t` is called `type checking` simply, `typing`.
@@ -182,16 +216,14 @@ if 7 > 42 then "hello" else 10;;
     Error: This expression has type int but an expression was expected of type string
 ```
 
-Evaluating an expression returns a value. For example, evaluaing `(if 10>5 then 100 else 200)` retuens `100`. 
+Evaluating an expression returns a value. For example, evaluaing `(if 10 > 5 then 100 else 200)` retuens `100`. 
 ```ocaml
 print_int (if 10>5 then 100 else 200);;
 100- : unit = ()
 ```
 
 ## Functions
-OCaml functions are like mathematical functions. They compute a result from provided arguments. 
-
-We use `let` to define a function:
+OCaml functions are like mathematical functions. They compute a result from provided arguments. We use `let` to define a function:
 
 Factorial function:
 ```ocaml
@@ -201,14 +233,14 @@ let rec fact n =
   else
      n * fact (n-1);;
 ```
-`rec` keyword is used to define `recursive` functions. 
+`rec` keyword is used to define `recursive` functions. `;;` ends an expression in the top-level of OCaml. We use it to say:  “Give me the value of this expression”. It is not used in the body of a function and it is not needed in the real OCaml development. 
+
 
 ### Calling Functions (Function Application)
 Syntax 
 ```ocaml
 f e1 e2 … en
 ```
-
 Parentheses are not required around argument(s). There are no commas between the arguments. Instead, we use spaces. 
 
 Evaluation
@@ -226,17 +258,18 @@ let rec fact n =
        1
     else
        n * fact (n-1)
-
-
-fact 2 (* substitute every occurence of n inside the body of fact with 2 *)
-if 2=0 then 1 else 2*fact(2-1) (* evaluate the if expression *)
-2 * fact 1 (* result of the else branch *)
-2 * (if 1=0 then 1 else 1*fact(1-1)) (* substitute n with 1 *)
-2 * 1 * fact 0
-2 * 1 * (if 0=0 then 1 else 0*fact(0-1))
-2 * 1 * 1
-2
 ```
+|     expression        | semantics |
+| ------------ | ------- |
+| fact 2  | substitute every occurence of n inside the body of fact with 2    |
+| if 2=0 then 1 else 2*fact(2-1)| evaluate the if expression|
+|2 * fact 1 | result of the else branch|
+|2 * (if 1=0 then 1 else 1*fact(1-1))| substitute n with 1 |
+|2 * 1 * fact 0||
+|2 * 1 * (if 0=0 then 1 else 0*fact(0-1))||
+|2 * 1 * 1||
+|2 | |
+
 
 ### Function Types
 
@@ -385,7 +418,7 @@ This expression has type string but an expression was expected of type int
 This expression has type int list but is here used with type int list list
 ```
 
-Can you construct a list y such that [1;2]::y makes sense? 
+Can you construct a list y such that `[1;2]::y` makes sense? 
 
 Yes. If the type of `y` is `int list list`,i.e., `[1;2]::[[3;4]]`. Each element of this list is an `int list`.
 
@@ -426,12 +459,13 @@ hd []	    (* Exception: Match_failure *)
 ### "Deep" pattern matching 
 You can nest patterns for more precise matches
 * `a::b` matches lists with **at least one element** 
-	* It matches `[1;2;3]`, binding `a` to `1` and `b` to `[2;3]` 
+	* `match [1;2;3] with |a::b` matches and binds `a` to `1` and `b` to `[2;3]` 
 * `a::[]` matches lists with **exactly one element**
-	* It matches `[1]`, binding `a` to `1`. we could also write pattern `a::[]` as `[a]` 
+	* `match [1] with | a::[]` binds `a` to `1`. we could also write pattern `a::[]` as `[a]` 
 * `a::b::[]` matches lists with **exactly two elements** 
-	* It matches [1;2], binding a to 1 and b to 2. We could also write pattern a::b::[] as [a;b] 
-* `a::b::c::d` matches lists with **at least three elements**. It matches `[1;2;3]`, binding `a` to `1`, `b` to `2`, `c` to `3`, and `d` to `[]`.
+	* `match [1;2] with |a::b::[]` binds `a` to 1 and `b` to 2. We could also write pattern a::b::[] as [a;b] 
+* `a::b::c::d` matches lists with **at least three elements**. 
+  * `match [1;2;3] with |a::b::c::d`, binds `a` to `1`, `b` to `2`, `c` to `3`, and `d` to `[]`.
 
 **Cannot write pattern as [a;b;c]::d (why?)**
 
@@ -516,7 +550,7 @@ hd : 'a list -> 'a
 ```
 This says the function takes a list of any element type `'a`, and returns something of that same type. These are basically generic types in Java. 
 `'a list` is like `List<T>`. 
-### Examples Of Polymorphic Types
+### Examples of Polymorphic Types
 ```ocaml
 let tl (_::t) = t
 # tl [1; 2; 3];;
@@ -627,8 +661,9 @@ let is_odd x =
 		| _ -> raise (Invalid_argument "is_odd");;    (* why do we need this? *)
 (* try -1 mod 2 *)
 ```
-Negate a value
+
 ```ocaml
+(* Negate a value *)
 let neg b = 
 	match b with
 	| true -> false
@@ -828,19 +863,13 @@ After the `}`, `pi` is not visible.
 x;; (* Unbound value x *)
 
 let x = 1 in x + 1;;  (* 2 *)
-
 let x = x in x + 1;; (* Unbound value x *)
-
-
 let x = 1 in  x + 1 + x   ;; 	(* 3 *)
-
 (let x = 1 in x + 1) ;;  x;;   (* Unbound value x *)
-
 let x = 4 in (let x = x + 1 in x) 
              let x = 4 + 1 in x
              let x = 5 in x
              5
-
 ```
 
 #### Nested Let Expressions
