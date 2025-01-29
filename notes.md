@@ -1,5 +1,5 @@
 
-# OCaml
+# Functional Programming with OCaml
 
 Caml is a dialect of the ML programming language family, developed in France at INRIA. OCaml is the main implementation of the programming language Caml. The features of ML include:
 * First-class functions
