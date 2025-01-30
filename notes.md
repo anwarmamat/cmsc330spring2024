@@ -382,7 +382,7 @@ let id (x:int) = x (* int → int *)
 ## Lists in OCaml
 List is a basic data structure in OCaml. Lists can be of arbitrary length and implemented as a linked data structure. Lists must be homogeneous, meaning all elements have the same type. We will learn how to construct lists and destruct them via pattern matching. 
 
-### Evaluation
+#### Evaluation
 `[ ]` is a value. To evaluate `[e1; e1;...;en]`, we evaluate `e1` to a value `v1`, `e2` to a value `v2`, and `en` to a value `vn`, and return `[v1;…;vn]`.
 `e1::e2` is a desugaring of [e1;e2].
 
@@ -400,7 +400,7 @@ val z : int list = [5; 1; 2; 3]
 val m : string list = ["hello"; "bob"]
 ```
 
-### Typing
+#### Typing
 The type of `Nil` is `'a list` i.e., empty list `[ ]` has type `t` list for any type `t`. The type of `Cons` is 
 if `e1 : t` and `e2 : t list` then `e1::e2 : t list`. If we add parentheses for clarity: if `e1 : t` and `e2 : (t list)` then `(e1::e2) : (t list)`.
 
@@ -640,7 +640,7 @@ let rec rev l = match l with
 `rev` takes O(n2) time.  Can you do better? Here is a  clever version of reverse
 ```ocaml
 let rec rev_helper l a = match l with
-    [] -> a
+  [] -> a
   | (x::xs) -> rev_helper xs (x::a)
 
 let rev l = rev_helper l []
@@ -658,10 +658,10 @@ rev_helper [] [3;2;1] →
 (* Check if a value is odd *)
 
 let is_odd x =
-		match x mod 2 with
-		0 -> false
-		| 1 -> true
-		| _ -> raise (Invalid_argument "is_odd");;    (* why do we need this? *)
+	match x mod 2 with
+	0 -> false
+	| 1 -> true
+	| _ -> raise (Invalid_argument "is_odd");;    (* why do we need this? *)
 (* try -1 mod 2 *)
 ```
 
