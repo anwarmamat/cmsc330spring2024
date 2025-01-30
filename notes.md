@@ -386,7 +386,6 @@ List is a basic data structure in OCaml. Lists can be of arbitrary length and im
 `[ ]` is a value. To evaluate `[e1; e1;...;en]`, we evaluate `e1` to a value `v1`, `e2` to a value `v2`, and `en` to a value `vn`, and return `[v1;…;vn]`.
 `e1::e2` is a desugaring of [e1;e2].
 
-### Examples
 ```ocaml
 # let y = [1; 1+1; 1+1+1] ;;
 val y : int list = [1; 2; 3]
@@ -403,15 +402,8 @@ val m : string list = ["hello"; "bob"]
 
 ### Typing
 The type of `Nil` is `'a list` i.e., empty list `[ ]` has type `t` list for any type `t`. The type of `Cons` is 
-```ocaml 
-If e1 : t and e2 : t list then e1::e2 : t list
-```
+if `e1 : t` and `e2 : t list` then `e1::e2 : t list`. If we add parentheses for clarity: if `e1 : t` and `e2 : (t list)` then `(e1::e2) : (t list)`.
 
-With parens for clarity: 
-```ocaml
-If e1 : t and e2 : (t list) then (e1::e2) : (t list) 
-```
-### Examples
 ```ocaml
 # let m = [[1];[2;3]];;
 val y : int list list = [[1]; [2; 3]]
