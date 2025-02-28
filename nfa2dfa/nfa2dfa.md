@@ -20,7 +20,7 @@ Let $F = \\{r \mid \exists s \in r \text{ with } s \in F_n \\}$
 |:---:|:---:|:---:|:---:|
 |{0,2}| 1   | phi  | 2  | 
 |1   | Ø  | {0,2}  | Ø  |  
-|2   | Ø  | Ø  | c  |  
+|2   | Ø  | Ø  | 2  |  
 
 ![DFA 1](images/dfa1.svg)
 
